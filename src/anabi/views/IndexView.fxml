@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="paneContext" prefHeight="298.0032099914551" prefWidth="499.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="anabi.controlers.IndexViewController">
+  <children>
+    <AnchorPane id="AnchorPane">
+      <children>
+        <VBox prefHeight="297.5832099914551" prefWidth="499.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+          <children>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+              <children>
+                <Text fx:id="txNameMyApplication" strokeType="OUTSIDE" strokeWidth="0.0" text="AnaBi 1.0" textOrigin="CENTER">
+                  <font>
+                    <Font size="24.0" />
+                  </font>
+                </Text>
+              </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+              <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" minHeight="-1.0" prefHeight="-1.0" prefWidth="-1.0" text="Herramienta de Análisis Bibliométrico">
+                  <font>
+                    <Font size="18.0" />
+                  </font>
+                </Label>
+              </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="4.0">
+              <children>
+                <AnchorPane prefHeight="100.0" prefWidth="499.0">
+                  <children>
+                    <Label layoutX="19.0" layoutY="17.0" prefHeight="22.0" prefWidth="116.0" text="Archivo WoS" />
+                    <TextField id="txNameMyApp" layoutX="15.0" layoutY="49.0" prefWidth="214.1328125" />
+                    <Button id="btnSelectFile" layoutX="251.0" layoutY="50.0" mnemonicParsing="false" onAction="#showSelectFile" prefWidth="207.0" text="Seleccionar Archivo WoS" />
+                  </children>
+                </AnchorPane>
+              </children>
+            </HBox>
+          </children>
+        </VBox>
+      </children>
+    </AnchorPane>
+  </children>
+</StackPane>

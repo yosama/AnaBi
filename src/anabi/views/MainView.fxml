@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?scenebuilder-stylesheet style.css ?>
+<?scenebuilder-background-color 0xdfdfdfff?>
+
+<AnchorPane id="AnchorPane" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="anabi.controlers.MainViewController">
+  <children>
+    <BorderPane focusTraversable="false" minHeight="600.0" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <center>
+        <StackPane fx:id="paneContext" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="true" prefHeight="580.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
+      </center>
+         <top>
+            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <items>
+                <Button mnemonicParsing="false" text="d" />
+                  <Button mnemonicParsing="false" text="a" />
+                  <Button mnemonicParsing="false" text="f" />
+                  <TextField />
+              </items>
+            </ToolBar>
+         </top>
+    </BorderPane>
+  </children>
+<!--    <stylesheets>
+    <URL value="@style.css"/>
+  </stylesheets>-->
+</AnchorPane>

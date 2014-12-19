@@ -1,0 +1,29 @@
+
+.textfield, .textfield:focused {
+    -fx-background-color: transparent ;
+    -fx-background-insets: 0px ;
+}
+
+/*.content {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+    -fx-padding: 10;
+}*/
+/*.root {
+-fx-base: rgb(50, 50, 50);
+-fx-background: rgb(50, 50, 50);
+-fx-control-inner-background:  rgb(50, 50, 50);
+}*/
+
+/*.split-pane:horizontal > * > .split-pane-divider {
+   -fx-border-color: transparent -fx-box-border transparent #BBBBBB;
+   -fx-background-color: transparent, -fx-inner-border-horizontal;
+   -fx-background-insets: 0, 0 1 0 1;
+}*/
+
+/* vertical the two nodes are placed on top of each other. */
+/*.split-pane:vertical > * > .split-pane-divider {
+   -fx-border-color:  #BBBBBB transparent -fx-box-border transparent;
+   -fx-background-color: transparent, -fx-inner-border;
+   -fx-background-insets: 0, 1 0 1 0;
+}*/

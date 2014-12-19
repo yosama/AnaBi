@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+
+<StackPane prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="anabi.controlers.IndiActivityController">
+  <children>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600.0" prefWidth="800.0">
+      <children>
+        <SplitPane id="SplitPane" dividerPositions="0.29197994987468673" focusTraversable="true" pickOnBounds="false" prefHeight="543.0" prefWidth="779.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+          <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="313.0" prefWidth="196.0">
+              <children>
+                <AnchorPane layoutX="0.0" layoutY="47.0" prefHeight="584.0" prefWidth="273.0" />
+                <SplitPane dividerPositions="0.174496644295302" focusTraversable="true" orientation="VERTICAL" prefHeight="684.0" prefWidth="325.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <items>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="99.0" prefWidth="323.0">
+                      <children>
+                        <Label alignment="CENTER" prefHeight="57.0" prefWidth="280.0" text="Indicadores de actividad" wrapText="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                      </children>
+                    </AnchorPane>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                      <children>
+                        <ListView fx:id="lvIndiActivity" pickOnBounds="false" prefHeight="533.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                      </children>
+                    </AnchorPane>
+                  </items>
+                </SplitPane>
+              </children>
+            </AnchorPane>
+            <AnchorPane fx:id="apContentR" minHeight="0.0" minWidth="0.0" pickOnBounds="false" prefHeight="299.0" prefWidth="316.0">
+              <children>
+                <VBox prefHeight="543.0" prefWidth="386.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                    <HBox id="HBox" fx:id="hbCategDoc" alignment="TOP_LEFT" prefHeight="246.0" prefWidth="562.0" spacing="0.0">
+                      <children>
+                        <TitledPane fx:id="tpDocCategory" alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" expanded="true" prefWidth="553.0" text="Categoria de documentos" HBox.hgrow="ALWAYS">
+                          <content>
+                            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <children>
+                                <TableView id="tvTotalProduction" fx:id="tvCitable" prefHeight="181.0" prefWidth="506.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <columns>
+                                    <TableColumn maxWidth="100.0" minWidth="20.0" prefWidth="70.0" resizable="false" text="Año" fx:id="tcYear" />
+                                    <TableColumn maxWidth="100.0" minWidth="10.0" prefWidth="100.0" resizable="false" text="Citables" fx:id="tcCitable">
+                                      <columns>
+                                        <TableColumn maxWidth="70.0" minWidth="10.0" prefWidth="70.0" text="Cantidad" fx:id="tcCitableCount" />
+                                        <TableColumn maxWidth="70.0" minWidth="10.0" prefWidth="70.0" text="\%" fx:id="tcCitablePercentage" />
+                                      </columns>
+                                    </TableColumn>
+                                    <TableColumn maxWidth="100.0" minWidth="10.0" prefWidth="100.0" resizable="false" text="No Citables">
+                                      <columns>
+                                        <TableColumn maxWidth="70.0" minWidth="10.0" prefWidth="70.0" text="Cantidad" fx:id="tcNoCitableCount" />
+                                        <TableColumn maxWidth="100.0" minWidth="10.0" prefWidth="70.0" text="\%" fx:id="tcNoCitablePercentage" />
+                                      </columns>
+                                    </TableColumn>
+                                    <TableColumn maxWidth="200.0" minWidth="10.0" prefWidth="150.0" resizable="false" text="Produccion Total" fx:id="tcTotalProduction" />
+                                  </columns>
+                                </TableView>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                          <HBox.margin>
+                            <Insets top="10.0" />
+                          </HBox.margin>
+                        </TitledPane>
+                      </children>
+                    </HBox>
+                    <HBox id="hAuthorProm" fx:id="hbAuthorProm" alignment="CENTER" prefHeight="328.0" prefWidth="562.0" visible="false">
+                      <children>
+                        <TitledPane fx:id="tpAuthorProm" alignment="CENTER" animated="false" collapsible="false" contentDisplay="CENTER" expanded="true" prefHeight="262.0" prefWidth="600.0" text="Promedio de autores por documentos" visible="true">
+                          <content>
+                            <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                              <children>
+                                <TableView id="tvTotalProduction" fx:id="tvAuthorProm" prefHeight="229.0" prefWidth="596.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                  <columns>
+                                    <TableColumn maxWidth="50.0" minWidth="20.0" prefWidth="50.0" resizable="false" text="Año" fx:id="tcYearProm" />
+                                    <TableColumn maxWidth="100.0" minWidth="10.0" prefWidth="100.0" resizable="false" text="Citables">
+                                      <columns>
+                                        <TableColumn maxWidth="60.0" minWidth="10.0" prefWidth="60.0" text="Autores" fx:id="tcAuthorCit" />
+                                        <TableColumn maxWidth="50.0" minWidth="10.0" prefWidth="50.0" text="Doc" fx:id="tcDocCit" />
+                                        <TableColumn maxWidth="40.0" minWidth="10.0" prefWidth="40.0" text="\%" fx:id="tcPromCit" />
+                                      </columns>
+                                    </TableColumn>
+                                    <TableColumn maxWidth="100.0" minWidth="10.0" prefWidth="100.0" resizable="false" text="No Citables">
+                                      <columns>
+                                        <TableColumn maxWidth="60.0" minWidth="10.0" prefWidth="60.0" text="Autores" fx:id="tcAuthorNoCit" />
+                                        <TableColumn maxWidth="40.0" minWidth="10.0" prefWidth="40.0" text="Doc" fx:id="tcDocNoCit" />
+                                        <TableColumn maxWidth="40.0" minWidth="10.0" prefWidth="40.0" text="\%" fx:id="tcPromNoCit" />
+                                      </columns>
+                                    </TableColumn>
+                                    <TableColumn maxWidth="203.0" minWidth="10.0" prefWidth="203.0" resizable="false" text="Total">
+                                      <columns>
+                                        <TableColumn maxWidth="70.0" minWidth="10.0" prefWidth="60.0" text="Autores" fx:id="tcTotAuthor" />
+                                        <TableColumn maxWidth="40.0" minWidth="10.0" prefWidth="40.0" text="Doc" fx:id="tcTotDoc" />
+                                        <TableColumn maxWidth="40.0" minWidth="10.0" prefWidth="40.0" text="\%" fx:id="tcTotProm" />
+                                      </columns>
+                                    </TableColumn>
+                                  </columns>
+                                </TableView>
+                              </children>
+                            </AnchorPane>
+                          </content>
+                        </TitledPane>
+                      </children>
+                    </HBox>
+                  </children>
+                </VBox>
+              </children>
+            </AnchorPane>
+          </items>
+        </SplitPane>
+      </children>
+    </AnchorPane>
+  </children>
+</StackPane>
