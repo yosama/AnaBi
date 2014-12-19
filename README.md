@@ -1,7 +1,6 @@
-AnaBi
+#AnaBi
 =====
 
-Bibliometric analysis tool
-Esta herramienta permite la búsqueda, recuperación y tratamiento (normalización) de un archivo de datos 
-de la Web of Science (WoS), base de datos de referencias bibliográficas de artículos de revistas científicas 
-que permite el acceso a citas y resúmenes de autores de más de 12 mil publicaciones periódicas de distribución mundial.
+###Bibliometric analysis tool
+
+This tool allows the search, recovery and treatment (normalization) of a data fileWeb of Science (WoS) database of references to journal articles that provides access to citations and abstracts of authors from more than 12,000 journals worldwide distribution.
