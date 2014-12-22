@@ -4,6 +4,16 @@
     -fx-background-insets: 0px ;
 }
 
+.btnOpen{          
+    -fx-graphic: url("resources/folder232.png");
+-fx-background-insets: 0px ;
+
+    
+}
+
+
+
+
 /*.content {
     -fx-background-color: white;
     -fx-background-radius: 5;

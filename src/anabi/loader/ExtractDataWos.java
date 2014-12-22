@@ -2,8 +2,6 @@
 package anabi.loader;
 
 
-import anabi.controlers.MainControllerView;
-import anabi.controlers.ViewNavigator;
 import anabi.model.Record;
 import anabi.services.AffiliationServices;
 import anabi.services.AuthorServices;

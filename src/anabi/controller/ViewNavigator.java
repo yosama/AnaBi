@@ -1,4 +1,4 @@
-package anabi.controlers;
+package anabi.controller;
 
 import java.io.IOException;
 
@@ -29,7 +29,7 @@ public class ViewNavigator extends Pane {
 	public static final String indiCitedViewFile = "../views/IndiCitedView.fxml";
 	public static final String indiTematicViewFile = "../views/IndiTematicView.fxml";
 	public static final String indiColaborationViewFile = "../views/IndiColaborationView.fxml";
-	public static final String anabiMainView = "../views/AnabiView.fxml";
+	public static final String anabiMainView = "../views/ResumenView.fxml";
 
 
 

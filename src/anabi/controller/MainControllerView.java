@@ -1,5 +1,5 @@
 
-package anabi.controlers;
+package anabi.controller;
 
 import anabi.model.Affiliation;
 import anabi.model.Author;
@@ -24,6 +24,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -62,6 +63,8 @@ public class MainControllerView implements Initializable {
 	private Label lbCountPublishers;
 	@FXML
 	private Label lbCountFundings;
+	@FXML
+	private Button btnOpen;
 
 
 	private ObservableList<String> olDocuments = FXCollections.observableArrayList();
@@ -88,6 +91,7 @@ public class MainControllerView implements Initializable {
 		tfCountAffiliations.getStyleClass().add("textfield");
 		tfCountDocuments.getStyleClass().add("textfield");
 		tfCountAuthors.getStyleClass().add("textfield");
+		
 
 		updateListDocument();
 		updateListAffiliation();

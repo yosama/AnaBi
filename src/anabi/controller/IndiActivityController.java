@@ -1,5 +1,5 @@
 
-package anabi.controlers;
+package anabi.controller;
 
 import anabi.model.AuthorCategoryDocument;
 import anabi.model.CategoryDocument;

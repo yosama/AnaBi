@@ -1,4 +1,4 @@
-package anabi.controlers;
+package anabi.controller;
 
 import anabi.loader.ExtractDataWos;
 
@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 //import javafx.scene.control.Alert;
 //import javafx.scene.control.Alert.AlertType;
 //import javafx.scene.control.Dialog;
@@ -41,8 +42,7 @@ import org.controlsfx.dialog.Dialogs;
 public class MainViewController implements Initializable {
 
 	private AnabiMain primaryStage;
-	private ExtractDataWos extractData;
-	private Stage stagePopup;
+	
 
 	//     @FXML
 	//    private StackPane paneContext;
@@ -58,6 +58,8 @@ public class MainViewController implements Initializable {
 	private Label lbTitle;
 	@FXML
 	private Text txNameMyApp;
+	@FXML
+	private Button btnOpen;
 
 	public void setView(Node node) {
 		paneContext.getChildren().setAll(node);
@@ -203,6 +205,7 @@ public class MainViewController implements Initializable {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 
+		btnOpen.getStyleClass().add("btnOpen");
 	}
 
 }

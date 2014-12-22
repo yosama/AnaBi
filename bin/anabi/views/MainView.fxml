@@ -9,28 +9,31 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
+<?import anabi.views.resources.*?>
 <?scenebuilder-stylesheet style.css ?>
 <?scenebuilder-background-color 0xdfdfdfff?>
 
-<AnchorPane id="AnchorPane" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="anabi.controlers.MainViewController">
+<AnchorPane id="AnchorPane" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="anabi.controller.MainViewController">
   <children>
     <BorderPane focusTraversable="false" minHeight="600.0" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <center>
-        <StackPane fx:id="paneContext" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="true" prefHeight="580.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
+        <StackPane fx:id="paneContext" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="true" prefHeight="560.0" prefWidth="800.0" BorderPane.alignment="CENTER" />
       </center>
          <top>
-            <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <items>
-                <Button mnemonicParsing="false" text="d" />
-                  <Button mnemonicParsing="false" text="a" />
-                  <Button mnemonicParsing="false" text="f" />
-                  <TextField />
+                  <AnchorPane prefHeight="28.0" prefWidth="782.0">
+                     <children>
+                      <Button layoutX="244.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="20.0" text="d" />
+                        <Button layoutX="210.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="20.0" text="f" />
+                        <Button layoutX="284.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="20.0" text="a" />
+                        <TextField layoutX="21.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="181.0" />
+                        <Button fx:id="btnOpen" contentDisplay="GRAPHIC_ONLY" layoutX="722.0" layoutY="1.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#showOpenFile" prefHeight="25.0" prefWidth="20.0" text="Button" />
+                     </children>
+                  </AnchorPane>
               </items>
             </ToolBar>
          </top>
     </BorderPane>
   </children>
-<!--    <stylesheets>
-    <URL value="@style.css"/>
-  </stylesheets>-->
 </AnchorPane>
