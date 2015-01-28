@@ -1,5 +1,5 @@
 
-package anabi.model;
+package anabi.models;
 
 
 /**
@@ -11,7 +11,7 @@ package anabi.model;
 public class Funding {
 
     private Record record;
-    private Integer codFunding = 0;
+    private Integer codFunding;
     private String nameFu;
     private String descriptionFx;
    
@@ -21,9 +21,9 @@ public class Funding {
     }
     
     
-    public Funding (String nameFu, String descriptionFx, Record record) {
+    public Funding (Integer idFunding,String nameFu, String descriptionFx, Record record) {
 		super();
-		this.codFunding += 1 ;
+		this.codFunding = idFunding ;
 		this.nameFu = nameFu;
 		this.descriptionFx = descriptionFx;
 		this.record = record;

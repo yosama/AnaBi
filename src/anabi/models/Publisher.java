@@ -1,5 +1,5 @@
 
-package anabi.model;
+package anabi.models;
 
 
 /**
@@ -10,25 +10,25 @@ package anabi.model;
 public class Publisher  {
 
     public Record record;
-    private Integer codPublisher = 0;
+    private Integer codPublisher;
     private String namePu;
     private String addressPa;
     private String cityPi;
-    private Journal journal;
+    
 
     public Publisher() {
     }
 
    
 
-    public Publisher(String namePu, String addressPa, String cityPi, Journal journal, Record record) {
+    public Publisher(Integer codPublisher,String namePu, String addressPa, String cityPi, Record record) {
 		super();
+		this.codPublisher = codPublisher;
 		this.record = record;
-		this.codPublisher =+ 1;
 		this.namePu = namePu;
 		this.addressPa = addressPa;
 		this.cityPi = cityPi;
-		this.journal = journal;
+		
 	}
 
 
@@ -64,16 +64,7 @@ public class Publisher  {
     public void setCityPi(String cityPi) {
         this.cityPi = cityPi;
     }
-
-   
-    public Journal getJournal() {
-        return journal;
-    }
-
-    public void setJournalList(Journal journal) {
-        this.journal = journal;
-    }
-
+    
     public Record getRecord(){
     	return record;
     }

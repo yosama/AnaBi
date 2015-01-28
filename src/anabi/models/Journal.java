@@ -1,6 +1,6 @@
 
 
-package anabi.model;
+package anabi.models;
 
 
 
@@ -13,7 +13,7 @@ package anabi.model;
 public class Journal {
 
 	private Record record;
-	private Integer codJournal = 0;
+	private Integer codJournal;
 	private String nameSo;
 	private String issnSo;
 	private String webSciencewc;
@@ -21,17 +21,17 @@ public class Journal {
 	private String issueIs;
 	private String sourceAbbrej9;
 	private String sourceAbbreji;
-	//	private Publisher codPublisher;
+	private Integer codPublisher;
 
 	public Journal() {
 	}
 
-	public Journal( String nameSo,
+	public Journal( Integer idJournal,String nameSo,
 			String issnSo, String webSciencewc, String researchAreasc,
 			String issueIs, String sourceAbbrej9, String sourceAbbreji, Record record) {
 		super();
 		this.record = record;
-		this.codJournal =+ 1;
+		this.codJournal = idJournal;
 		this.nameSo = nameSo;
 		this.issnSo = issnSo;
 		this.webSciencewc = webSciencewc;
@@ -107,13 +107,13 @@ public class Journal {
 		this.sourceAbbreji = sourceAbbreji;
 	}
 
-	//	public Publisher getCodPublisher() {
-	//		return codPublisher;
-	//	}
-	//
-	//	public void setCodPublisher(Publisher codPublisher) {
-	//		this.codPublisher = codPublisher;
-	//	}
+	public Integer getCodPublisher() {
+		return codPublisher;
+	}
+
+	public void setCodPublisher(Integer codPublisher) {
+		this.codPublisher = codPublisher;
+	}
 
 	public Record getRecord(){
 		return record;

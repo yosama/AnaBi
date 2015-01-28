@@ -1,5 +1,5 @@
 
-package anabi.controller;
+package anabi.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;

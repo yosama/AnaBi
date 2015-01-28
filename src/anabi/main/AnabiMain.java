@@ -2,13 +2,15 @@
 package anabi.main;
 
 import java.io.IOException;
+import java.util.Properties;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.layout.Pane;
-import anabi.controller.*;
+import anabi.controllers.*;
+import anabi.utilities.ConnectionDB;
 
 /**
  *
@@ -17,6 +19,7 @@ import anabi.controller.*;
 public class AnabiMain extends Application {
 
     private Stage primaryStage;
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -28,6 +31,7 @@ public class AnabiMain extends Application {
         stage.setScene(createScene(loadMainPane()));
 
         this.primaryStage.show();
+        
 
     }
 
@@ -81,5 +85,7 @@ public class AnabiMain extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    
 
 }

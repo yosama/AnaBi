@@ -1,4 +1,4 @@
-package anabi.controller;
+package anabi.controllers;
 
 import anabi.loader.ExtractDataWos;
 

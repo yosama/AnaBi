@@ -1,5 +1,5 @@
 
-package anabi.model;
+package anabi.models;
 
 
 import java.util.List;
@@ -24,17 +24,17 @@ public class Document  {
 	private String indexKewordsId;
 	private String authorKewordsDe;
 	private String citedCountNr;
-	private Integer citedTotalZ9;
-	private Integer citedReferenceTc;
+	private String citedTotalZ9;
+	private String citedReferenceTc;
 	private String pageCountPg;
 	private String pageBp ;
 	private String pageEp;
 	private List<Integer> listCodAuthor;
 	private List<Integer> listCodAffiliation;
-	private Funding funding;
-	private Journal journal;
+	private Integer codFunding;
+	private Integer codJournal;
 	private String documentType;
-	private CDocument codCDocument;
+	private Integer codCDocument;
 
 	public Document() {
 	}
@@ -45,8 +45,8 @@ public class Document  {
 			String languageTi, String abstractAb, String volumenVl,
 			String yearPublicationPy, String datePublicationPd,
 			String titleSourceDi, String indexKewordsId,
-			String authorKewordsDe, String citedCountNr, Integer citedTotalZ9,
-			Integer citedReferenceTc,String pageCountPG, String documentType, Record record) {
+			String authorKewordsDe, String citedCountNr, String citedTotalZ9,
+			String citedReferenceTc,String pageCountPG, String documentType, Record record) {
 
 		super();
 		this.codDocumentUt = codDocumentUt;
@@ -157,19 +157,19 @@ public class Document  {
 		this.citedCountNr = citedCountNr;
 	}
 
-	public Integer getCitedTotalZ9() {
+	public String getCitedTotalZ9() {
 		return citedTotalZ9;
 	}
 
-	public void setCitedTotalZ9(Integer citedTotalZ9) {
+	public void setCitedTotalZ9(String citedTotalZ9) {
 		this.citedTotalZ9 = citedTotalZ9;
 	}
 
-	public Integer getCitedReferenceTc() {
+	public String getCitedReferenceTc() {
 		return citedReferenceTc;
 	}
 
-	public void setCitedReferenceTc(Integer citedReferenceTc) {
+	public void setCitedReferenceTc(String citedReferenceTc) {
 		this.citedReferenceTc = citedReferenceTc;
 	}
 
@@ -197,20 +197,20 @@ public class Document  {
 		this.pageEp = pageEp;
 	}
 
-	public Funding getFunding() {
-		return funding;
+	public Integer getCodFunding() {
+		return codFunding;
 	}
 
-	public void setFunding(Funding funding) {
-		this.funding = funding;
+	public void setCodFunding(Integer idFunding) {
+		this.codFunding = idFunding;
 	}
 
-	public Journal getJournal() {
-		return journal;
+	public Integer getCodJournal() {
+		return codJournal;
 	}
 
-	public void setJournal(Journal journal) {
-		this.journal = journal;
+	public void setCodJournal(Integer idJournal) {
+		this.codJournal = idJournal;
 	}
 
 	public String getDocumentType() {
@@ -221,19 +221,19 @@ public class Document  {
 		this.documentType = documentType;
 	}
 
-	public CDocument getCodCDocument() {
+	public Integer getCodCDocument() {
 		return codCDocument;
 	}
 
-	public void setCodCDocument(CDocument codCDocument) {
+	public void setCodCDocument(Integer codCDocument) {
 		this.codCDocument = codCDocument;
 	}
 
-	public void setAffiliationList(List<Integer> listAffiliation){
-		this.listCodAffiliation= listAffiliation;
+	public void setListCodAffiliation(List<Integer> listCodAffiliation){
+		this.listCodAffiliation= listCodAffiliation;
 	}
 
-	public List<Integer> getAffiliationList(){
+	public List<Integer> getListCodAffiliation(){
 		return listCodAffiliation;
 	}
 
@@ -242,8 +242,8 @@ public class Document  {
 		return listCodAuthor;
 	}
 
-	public void setAuthorList(List<Integer> authorList) {
-		this.listCodAuthor = authorList;
+	public void setAuthorList(List<Integer> listCodAuthor) {
+		this.listCodAuthor = listCodAuthor;
 	}
 	public Record  getRecord(){
 		return record;

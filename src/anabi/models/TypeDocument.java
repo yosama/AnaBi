@@ -1,9 +1,7 @@
 
 
-package anabi.model;
+package anabi.models;
 
-
-import java.util.List;
 
 
 /**
@@ -11,21 +9,21 @@ import java.util.List;
  * @author yosamac
  */
 
-public class TDocument  {
+public class TypeDocument  {
     
     private Integer codTDocument;
     private String nameTDocument;
     private String description;
-    private List<Document> documentList;
+    
 
-    public TDocument() {
+    public TypeDocument() {
     }
 
-    public TDocument(Integer codTDocument) {
+    public TypeDocument(Integer codTDocument) {
         this.codTDocument = codTDocument;
     }
 
-    public TDocument(Integer codTDocument, String nameTDocument) {
+    public TypeDocument(Integer codTDocument, String nameTDocument) {
         this.codTDocument = codTDocument;
         this.nameTDocument = nameTDocument;
     }
@@ -54,15 +52,5 @@ public class TDocument  {
         this.description = description;
     }
 
-    
-    public List<Document> getDocumentList() {
-        return documentList;
-    }
-
-    public void setDocumentList(List<Document> documentList) {
-        this.documentList = documentList;
-    }
-
-   
     
 }

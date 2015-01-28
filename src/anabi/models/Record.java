@@ -1,4 +1,4 @@
-package anabi.model;
+package anabi.models;
 
 import java.util.List;
 

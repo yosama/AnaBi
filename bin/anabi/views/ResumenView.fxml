@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.BorderPane?>
 
-<StackPane fx:id="paneContext" xmlns:fx="http://javafx.com/fxml/1" fx:controller="anabi.controller.MainControllerView">
+<StackPane fx:id="paneContext" xmlns:fx="http://javafx.com/fxml/1" fx:controller="anabi.controllers.MainControllerView">
    <children>
       <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
          <top>

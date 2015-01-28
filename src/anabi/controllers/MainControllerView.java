@@ -1,17 +1,17 @@
 
-package anabi.controller;
+package anabi.controllers;
 
-import anabi.model.Affiliation;
-import anabi.model.Author;
-import anabi.model.Document;
-import anabi.model.Record;
+import anabi.models.Affiliation;
+import anabi.models.Author;
+import anabi.models.Document;
+import anabi.models.Record;
 import anabi.services.AffiliationServices;
 import anabi.services.AuthorServices;
 import anabi.services.DocumentServices;
 import anabi.services.FundingServices;
-import anabi.services.InitServices;
 import anabi.services.JournalServices;
 import anabi.services.PublisherServices;
+import anabi.utilities.InitServices;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -130,7 +130,7 @@ public class MainControllerView implements Initializable {
 			lbDocuments.setText("ID:");
 			lbAffiliations.setText("Instituciones:");
 			tfCountDocuments.setText(document.getCodDocumentUt());
-			List <Integer> listCodAffiliations = document.getAffiliationList();
+			List <Integer> listCodAffiliations = document.getAuthorList();
 			List<Integer> listCodAuthors = document.getAuthorList();
 			tfCountAffiliations.setText(String.valueOf(listCodAffiliations.size()));
 			tfCountAuthors.setText(String.valueOf(listCodAuthors.size()));
@@ -194,11 +194,11 @@ public class MainControllerView implements Initializable {
 			lbDocuments.setText("Documentos:");
 			tfCountDocuments.setText(String.valueOf(affiliation.getListRecord().size()));
 			tfCountAffiliations.setText(newValueSelect);
-			tfCountAuthors.setText(String.valueOf(affiliation.getCodAuthorList().size()));
+			tfCountAuthors.setText(String.valueOf(affiliation.getListCodAuthor().size()));
 
 			// Filled author list
 			olAuthors.clear();
-			listCodAuthors = affiliation.getCodAuthorList();
+			listCodAuthors = affiliation.getListCodAuthor();
 			List<Author> listAuthors = authorServi.getAuthorList(listCodAuthors);
 			olAuthors.addAll(authorServi.getNamesList(listAuthors));
 			

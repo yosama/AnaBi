@@ -2,14 +2,16 @@
 package anabi.loader;
 
 
-import anabi.model.Record;
+import anabi.models.Record;
 import anabi.services.AffiliationServices;
 import anabi.services.AuthorServices;
 import anabi.services.DocumentServices;
 import anabi.services.FundingServices;
-import anabi.services.InitServices;
 import anabi.services.JournalServices;
 import anabi.services.PublisherServices;
+import anabi.services.TypeDocumentServices;
+import anabi.services.TypePublicationServices;
+import anabi.utilities.InitServices;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -39,6 +41,8 @@ public class ExtractDataWos {
 	private PublisherServices  publisherServi;
 	private JournalServices journalServi;
 	private DocumentServices documentServi;
+	private TypeDocumentServices typeDocumentServi;
+	private TypePublicationServices typePublicationServi;
 
 
 
@@ -108,14 +112,18 @@ public class ExtractDataWos {
 		InitServices iniServices = InitServices.getInstances();
 
 		iniServices.startServices();
-
+		iniServices.startConnection();
+		
 		authorServi = iniServices.getAuthorServices();
 		affiliationServi = iniServices.getAffiliationServi();
 		fundingServi = iniServices.getFundingServi();
 		journalServi = iniServices.getJournalServi();
 		publisherServi = iniServices.getPublisherServi();
 		documentServi = iniServices.getDocumentServi();
-
+		typeDocumentServi = iniServices.getTypeDocumentServi();
+		typePublicationServi = iniServices.getTypePublicationServi();
+		
+		iniServices.deleteDB();
 		
 
 		for (Object listRecord : listRecords) {
@@ -138,11 +146,11 @@ public class ExtractDataWos {
 			System.out.println("Insertando Organizacion que financia");
 			fundingServi.setListFunding(hashRecord, keyRecord);
 
-			System.out.println("Insertando Revista ");
-			journalServi.setListJournal(hashRecord, keyRecord);
-
 			System.out.println("Insertando Editorial");
 			publisherServi.setListPublisher(hashRecord, keyRecord);
+			
+			System.out.println("Insertando Revista ");
+			journalServi.setListJournal(hashRecord, keyRecord);
 
 			System.out.println("Insertando Articulo");
 			documentServi.setListDocument(hashRecord, keyRecord);
@@ -162,16 +170,16 @@ public class ExtractDataWos {
 		try {
 			System.out.println("DOCUMENTO: " + documentServi.findByRecord(row).getCodDocumentUt());
 			System.out.println("CANTIDAD AUTORES: "+documentServi.findByRecord(row).getAuthorList().size());
-			System.out.println("CANTIDAD AFILIACION : "+ documentServi.findByRecord(row).getAffiliationList().size());		
-			System.out.println("REVISTA: "+ documentServi.findByRecord(row).getJournal().getNameSo());	
-			System.out.println("FINANCIERA: "+ documentServi.findByRecord(row).getFunding().getNameFu());
+			System.out.println("CANTIDAD AFILIACION : "+ documentServi.findByRecord(row).getListCodAffiliation().size());	
+			System.out.println("REVISTA: "+ documentServi.findByRecord(row).getCodJournal());	
+			System.out.println("FINANCIERA: "+ documentServi.findByRecord(row).getCodFunding());
 
 		}catch(NullPointerException npe){
 System.out.println("Exeception "+ npe.getMessage());
 			System.out.println("Documento: " + documentServi.findByRecord(row).getCodDocumentUt()+
 					" \nCantidad autores: "+ authorServi.getAuthorList(documentServi.findByRecord(row).getRecord()).size()+
-					" \n Cantidad Afiliacion : "+ documentServi.findByRecord(row).getAffiliationList().size()+
-					" \nRevista : "+ documentServi.findByRecord(row).getJournal().getNameSo()+
+					" \n Cantidad Afiliacion : "+ documentServi.findByRecord(row).getListCodAffiliation().size()+
+					" \nRevista : "+ documentServi.findByRecord(row).getCodJournal()+
 					" \nOrganizacion Financiera: + fundingServi.getJournal(documentServi.getDocument(row).getRecord()).getNameFu() ");
 
 

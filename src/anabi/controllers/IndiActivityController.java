@@ -1,9 +1,8 @@
 
-package anabi.controller;
+package anabi.controllers;
 
-import anabi.model.AuthorCategoryDocument;
-import anabi.model.CategoryDocument;
-
+import anabi.models.AuthorCategoryDocument;
+import anabi.models.CategoryDocument;
 
 import java.net.URL;
 import java.util.Iterator;
@@ -18,7 +17,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
-
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
@@ -27,6 +25,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
+
 
 
 

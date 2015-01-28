@@ -9,7 +9,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane fx:id="paneContext" prefHeight="298.0032099914551" prefWidth="499.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="anabi.controller.IndexViewController">
+<StackPane fx:id="paneContext" prefHeight="298.0032099914551" prefWidth="499.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="anabi.controllers.IndexViewController">
   <children>
     <AnchorPane id="AnchorPane">
       <children>
@@ -33,17 +33,7 @@
                 </Label>
               </children>
             </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="4.0">
-              <children>
-                <AnchorPane prefHeight="100.0" prefWidth="499.0">
-                  <children>
-                    <Label layoutX="19.0" layoutY="17.0" prefHeight="22.0" prefWidth="116.0" text="Archivo WoS" />
-                    <TextField id="txNameMyApp" layoutX="15.0" layoutY="49.0" prefWidth="214.1328125" />
-                    <Button id="btnSelectFile" layoutX="251.0" layoutY="50.0" mnemonicParsing="false" onAction="#showSelectFile" prefWidth="207.0" text="Seleccionar Archivo WoS" />
-                  </children>
-                </AnchorPane>
-              </children>
-            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="4.0" />
           </children>
         </VBox>
       </children>

@@ -8,10 +8,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import anabi.model.Affiliation;
-import anabi.model.Author;
-import anabi.model.Document;
-import anabi.model.Record;
+import anabi.models.Affiliation;
+import anabi.models.Author;
+import anabi.models.Record;
+import anabi.utilities.InitServices;
 
 public class AffiliationServices {
 
@@ -19,11 +19,14 @@ public class AffiliationServices {
 	private Affiliation affiliation;
 	private Integer codAffiliation = 0;
 	private AuthorServices authorServi;
-	private List<Affiliation> listAffiliation = new ArrayList<Affiliation>();
-	private List<Integer> lisAuthor = new ArrayList<Integer>();
+	private List<Affiliation> listAffiliation;
+	private List<Integer> listCodAuthor;
 
-
-	public AffiliationServices(){}
+	public AffiliationServices(){
+		listAffiliation = new ArrayList<Affiliation>();
+		listCodAuthor = new ArrayList<Integer>();
+		
+	}
 
 	/** Extraer la afiliacion del record y adicionar a lista de afiliacion. 
 	 * 
@@ -82,11 +85,11 @@ public class AffiliationServices {
 
 						// Adiciona los autores a la filiacion encontrada
 						if ( affiliation != null ){
-							List<Integer> listTempCodAuthors = affiliation.getCodAuthorList();						
+							List<Integer> listTempCodAuthors = affiliation.getListCodAuthor();						
 							authorServi = iniServices.getAuthorServices();
-							lisAuthor = authorServi.buildCodAuthorsList(listAuthorXAffiliation);
-							listTempCodAuthors.addAll(lisAuthor);
-							affiliation.setCodAuthorList(listTempCodAuthors);
+							listCodAuthor = authorServi.buildCodAuthorsList(listAuthorXAffiliation);
+							listTempCodAuthors.addAll(listCodAuthor);
+							affiliation.setListCodAuthor(listTempCodAuthors);
 
 							List<Record> listTempRecords = affiliation.getListRecord();
 							listTempRecords.add(keyRecord);
@@ -98,9 +101,9 @@ public class AffiliationServices {
 							codAffiliation +=1 ;
 							affiliation = new Affiliation(codAffiliation, nameAffiliation, cityAffiliation,countryAffiliation, keyRecord);
 							authorServi = iniServices.getAuthorServices();;
-							lisAuthor = authorServi.buildCodAuthorsList(listAuthorXAffiliation);
+							listCodAuthor = authorServi.buildCodAuthorsList(listAuthorXAffiliation);
 
-							affiliation.setCodAuthorList(lisAuthor);
+							affiliation.setListCodAuthor(listCodAuthor);
 							listAffiliation.add(affiliation);
 						}
 					} 
@@ -201,7 +204,7 @@ public class AffiliationServices {
 		Affiliation objAffiliation = findByIdAffiliation(codAffiliation);
 
 		if (objAffiliation != null){
-			result = objAffiliation.getCodAuthorList().size();	
+			result = objAffiliation.getListCodAuthor().size();	
 		}
 
 		return result;
@@ -213,7 +216,7 @@ public class AffiliationServices {
 		Affiliation objAffiliation = findByIdAffiliation(codAffiliation);
 		
 		if (objAffiliation != null){
-			 List<Integer> listIdAuthor = objAffiliation.getCodAuthorList();
+			 List<Integer> listIdAuthor = objAffiliation.getListCodAuthor();
 			 result = authorServi.getAuthorList(listIdAuthor);
 		}
 		return result;
@@ -228,7 +231,7 @@ public class AffiliationServices {
 		Affiliation objAffiliation = findByName(nameAffiliation);
 		
 		if (objAffiliation != null){
-			 List<Integer> listIdAuthor = objAffiliation.getCodAuthorList();
+			 List<Integer> listIdAuthor = objAffiliation.getListCodAuthor();
 			 result = authorServi.getAuthorList(listIdAuthor);
 		}
 		

@@ -1,8 +1,8 @@
-package anabi.controller;
+package anabi.controllers;
 
 import java.io.IOException;
 
-import anabi.services.InitServices;
+import anabi.utilities.InitServices;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;

@@ -1,5 +1,5 @@
 
-package anabi.model;
+package anabi.models;
 
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class Affiliation  {
     private String nameAffiliation;
     private String cityAffiliation;
     private String countryAffiliation;
-    private List<Integer> listAuthors;
+    private List<Integer> listCodAuthor;
     private List<Record>listRecord;
    
     
@@ -35,7 +35,7 @@ public class Affiliation  {
         this.countryAffiliation = countryAffiliation;
         listRecord = new ArrayList<Record>();
         listRecord.add(record);
-        this.listAuthors = new ArrayList<Integer>();
+        this.listCodAuthor = new ArrayList<Integer>();
         
     }
 
@@ -72,12 +72,12 @@ public class Affiliation  {
     }
 
     
-    public List<Integer> getCodAuthorList() {
-        return listAuthors;
+    public List<Integer> getListCodAuthor() {
+        return listCodAuthor;
     }
 
-    public void setCodAuthorList(List<Integer> authorList) {
-        this.listAuthors = authorList;
+    public void setListCodAuthor(List<Integer> listCodAuthor) {
+        this.listCodAuthor = listCodAuthor;
     }
 
     

@@ -1,6 +1,6 @@
 
 
-package anabi.model;
+package anabi.models;
 
 
 import java.util.List;
@@ -20,8 +20,8 @@ public class Author {
 	private String emailEm;
 	private String authorRP;
 
-	private List<Affiliation> affiliationList;
-	private List<Document> documentList;
+	private List<Integer> listCodAffiliation;
+	private List<Integer> listCodDocument;
 
 	public Author() {
 	}
@@ -75,21 +75,21 @@ public class Author {
 	}
 
 	
-	public List<Affiliation> getAffiliationList() {
-		return affiliationList;
+	public List<Integer> getAffiliationList() {
+		return listCodAffiliation;
 	}
 
-	public void setAffiliationList(List<Affiliation> affiliationList) {
-		this.affiliationList = affiliationList;
+	public void setAffiliationList(List<Integer> listCodAffiliation) {
+		this.listCodAffiliation = listCodAffiliation;
 	}
 
 	
-	public List<Document> getDocumentList() {
-		return documentList;
+	public List<Integer> getDocumentList() {
+		return listCodDocument;
 	}
 
-	public void setDocumentList(List<Document> documentList) {
-		this.documentList = documentList;
+	public void setDocumentList(List<Integer> documentList) {
+		this.listCodDocument = documentList;
 	}
 
 	public Record getRecord(){
