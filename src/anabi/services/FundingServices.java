@@ -1,5 +1,6 @@
 package anabi.services;
 
+import java.nio.charset.CodingErrorAction;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class FundingServices {
 
 		iniServices  = iniServices.getInstances();
 		listFunding = new ArrayList<Funding>();
+		codFunding = 0;
 	}
 
 
@@ -44,22 +46,21 @@ public class FundingServices {
 
 			nameFundingFU = record.get("FU");
 			descriptionFundingFX = record.get("FX");
-
-			if ( !( nameFundingFU.isEmpty() && descriptionFundingFX.isEmpty()) ) {
+			
+			if ( nameFundingFU.isEmpty() && descriptionFundingFX.isEmpty() ) {
+				
+				System.out.println("Organizacion financiera vacia");
+			} else {
+				System.out.println( nameFundingFU +" ***DESCRIPTION: "+descriptionFundingFX );
 				codFunding +=1;
+				addFunding(codFunding, nameFundingFU, descriptionFundingFX);
 				
 				funding = new Funding(codFunding,nameFundingFU,descriptionFundingFX, keyRecord);
 				listFunding.add(funding);
-				
-				addFunding(codFunding,nameFundingFU, descriptionFundingFX);
-
-				
-
-			} else {
-				System.out.println("Organizacion financiera vacia");
 			}
 
 		} catch (Exception e) {
+		e.printStackTrace();
 			System.out.println("No se encuentra los campos de organizacion financiera");
 		}
 	}
