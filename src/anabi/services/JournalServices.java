@@ -15,8 +15,7 @@ public class JournalServices {
 
 	private Record keyRecord;
 	private Journal journal;
-	private Integer codJournal= 0;
-	private Integer codPublisher;
+	private Integer codJournal;
 	private PublisherServices  publisherServices;
 	private InitServices iniServices ;
 	private ConnectionDB connDB;
@@ -28,6 +27,7 @@ public class JournalServices {
 		iniServices  = iniServices.getInstances();
 
 		listJournal = new ArrayList<Journal>();
+		codJournal = 0;
 	}
 
 	/**
@@ -48,11 +48,12 @@ public class JournalServices {
 		issueIS = record.get("IS");
 		String sourceAbbJ9 = record.get("J9");
 		String sourceAbbJI = record.get("JI");
+		
 		codJournal +=1;
+		addJournal(codJournal,nameJournalSO, issnSN, categoryWC, researchSC, issueIS, sourceAbbJ9, sourceAbbJI);
+		
 		journal = new Journal (codJournal,nameJournalSO, issnSN, categoryWC, researchSC, issueIS, sourceAbbJ9, sourceAbbJI, keyRecord);
 		listJournal.add(journal);
-
-		addJournal(codJournal,nameJournalSO, issnSN, categoryWC, researchSC, issueIS, sourceAbbJ9, sourceAbbJI);
 
 	}
 
@@ -94,7 +95,7 @@ public class JournalServices {
 			String issueIS, String sourceAbbreJ9, String sourceAbbreJI){
 
 		publisherServices = iniServices.getPublisherServi();
-		codPublisher = publisherServices.getCodPublisher();
+		Integer codPublisher = publisherServices.getCodPublisher();
 
 		sql = "";
 		sql = "INSERT INTO journal VALUES ("+idJournal+",\""+nameSO+"\",\""+issnSO+"\",\""+webScienceWC+"\",\""+researchAreaSC+"\",\""+issueIS+"\",\""+sourceAbbreJ9+"\",\""+sourceAbbreJI+"\","+codPublisher+")";

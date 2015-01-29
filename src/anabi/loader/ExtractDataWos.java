@@ -182,7 +182,6 @@ System.out.println("Exeception "+ npe.getMessage());
 					" \nRevista : "+ documentServi.findByRecord(row).getCodJournal()+
 					" \nOrganizacion Financiera: + fundingServi.getJournal(documentServi.getDocument(row).getRecord()).getNameFu() ");
 
-
 		}
 
 	}
