@@ -7,6 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.naming.CommunicationException;
+
+import com.mysql.jdbc.CommunicationsException;
+
 public class ConnectionDB {
 
 	private Connection conn = null;
@@ -19,7 +23,7 @@ public class ConnectionDB {
 			sqle.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 
 	public ResultSet runSql(String sql) {
@@ -30,7 +34,7 @@ public class ConnectionDB {
 		
 		try{
 			statment = conn.createStatement();
-			if (sql.contains("SELECT")){
+			if ( (sql.contains("SELECT ")) && (sql.contains("FROM ")) ){
 				//System.out.println(sql);
 				rs = statment.executeQuery(sql);
 			}else{

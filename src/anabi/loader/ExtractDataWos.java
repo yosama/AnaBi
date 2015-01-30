@@ -9,8 +9,8 @@ import anabi.services.DocumentServices;
 import anabi.services.FundingServices;
 import anabi.services.JournalServices;
 import anabi.services.PublisherServices;
-import anabi.services.TypeDocumentServices;
-import anabi.services.TypePublicationServices;
+import anabi.services.DocumentTypeServices;
+import anabi.services.PublicationTypeServices;
 import anabi.utilities.InitServices;
 
 import java.io.BufferedReader;
@@ -41,8 +41,8 @@ public class ExtractDataWos {
 	private PublisherServices  publisherServi;
 	private JournalServices journalServi;
 	private DocumentServices documentServi;
-	private TypeDocumentServices typeDocumentServi;
-	private TypePublicationServices typePublicationServi;
+	private DocumentTypeServices typeDocumentServi;
+	private PublicationTypeServices typePublicationServi;
 
 
 
@@ -120,8 +120,8 @@ public class ExtractDataWos {
 		journalServi = iniServices.getJournalServi();
 		publisherServi = iniServices.getPublisherServi();
 		documentServi = iniServices.getDocumentServi();
-		typeDocumentServi = iniServices.getTypeDocumentServi();
-		typePublicationServi = iniServices.getTypePublicationServi();
+//		typeDocumentServi = iniServices.getTypeDocumentServi();
+//		typePublicationServi = iniServices.getTypePublicationServi();
 		
 		iniServices.deleteDB();
 		
@@ -168,18 +168,18 @@ public class ExtractDataWos {
 
 		int row = 5;
 		try {
-			System.out.println("DOCUMENTO: " + documentServi.findByRecord(row).getCodDocumentUt());
-			System.out.println("CANTIDAD AUTORES: "+documentServi.findByRecord(row).getAuthorList().size());
-			System.out.println("CANTIDAD AFILIACION : "+ documentServi.findByRecord(row).getListCodAffiliation().size());	
-			System.out.println("REVISTA: "+ documentServi.findByRecord(row).getCodJournal());	
-			System.out.println("FINANCIERA: "+ documentServi.findByRecord(row).getCodFunding());
+			System.out.println("DOCUMENTO: " + documentServi.findDocumentByRecord(row).getCodDocumentUt());
+			System.out.println("CANTIDAD AUTORES: "+documentServi.findDocumentByRecord(row).getAuthorList().size());
+			System.out.println("CANTIDAD AFILIACION : "+ documentServi.findDocumentByRecord(row).getListCodAffiliation().size());	
+			System.out.println("REVISTA: "+ documentServi.findDocumentByRecord(row).getCodJournal());	
+			System.out.println("FINANCIERA: "+ documentServi.findDocumentByRecord(row).getCodFunding());
 
 		}catch(NullPointerException npe){
 System.out.println("Exeception "+ npe.getMessage());
-			System.out.println("Documento: " + documentServi.findByRecord(row).getCodDocumentUt()+
-					" \nCantidad autores: "+ authorServi.getAuthorList(documentServi.findByRecord(row).getRecord()).size()+
-					" \n Cantidad Afiliacion : "+ documentServi.findByRecord(row).getListCodAffiliation().size()+
-					" \nRevista : "+ documentServi.findByRecord(row).getCodJournal()+
+			System.out.println("Documento: " + documentServi.findDocumentByRecord(row).getCodDocumentUt()+
+					" \nCantidad autores: "+ authorServi.getAuthorList(documentServi.findDocumentByRecord(row).getRecord()).size()+
+					" \n Cantidad Afiliacion : "+ documentServi.findDocumentByRecord(row).getListCodAffiliation().size()+
+					" \nRevista : "+ documentServi.findDocumentByRecord(row).getCodJournal()+
 					" \nOrganizacion Financiera: + fundingServi.getJournal(documentServi.getDocument(row).getRecord()).getNameFu() ");
 
 		}

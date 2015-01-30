@@ -9,7 +9,7 @@ import anabi.models.TypeDocument;
 import anabi.utilities.ConnectionDB;
 import anabi.utilities.InitServices;
 
-public class TypeDocumentServices {
+public class DocumentTypeServices {
 
 	private InitServices iniServices;
 	private ConnectionDB connDB;
@@ -17,7 +17,7 @@ public class TypeDocumentServices {
 	private TypeDocument typeDocument;
 
 
-	public TypeDocumentServices(){
+	public DocumentTypeServices(){
 		iniServices = InitServices.getInstances();
 		connDB  = iniServices.getDB();
 

@@ -98,13 +98,15 @@ public class FundingServices {
 	public void addFunding (Integer idFunding,String nameFu,String descriptionFx){
 
 		sql = "";
-		
+
 		if (nameFu.contains("'")) {
 			nameFu = nameFu.replace("'", " ").trim();
 		}
-		 if (descriptionFx.contains("'")) {
+		
+		if (descriptionFx.contains("'")) {
 			descriptionFx =  descriptionFx.replace("'", " ").trim();
-		 }
+		}
+
 		sql = "INSERT INTO funding VALUES ("+idFunding+",\'"+nameFu+"\',\'"+descriptionFx+"\')";
 		System.out.println(descriptionFx.length());
 		connDB = iniServices.getDB();

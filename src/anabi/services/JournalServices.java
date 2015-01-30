@@ -100,7 +100,7 @@ public class JournalServices {
 		sql = "";
 		sql = "INSERT INTO journal VALUES ("+idJournal+",\""+nameSO+"\",\""+issnSO+"\",\""+webScienceWC+"\",\""+researchAreaSC+"\",\""+issueIS+"\",\""+sourceAbbreJ9+"\",\""+sourceAbbreJI+"\","+codPublisher+")";
 		connDB = iniServices.getDB();	
-		System.out.println(sql);
+		//System.out.println(sql);
 		connDB.runSql(sql);
 	}
 

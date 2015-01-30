@@ -102,7 +102,7 @@ public class MainControllerView implements Initializable {
 	public void updateListDocument() {
 
 		documentServi = InitServices.getInstances().getDocumentServi();
-		olDocuments.addAll(documentServi.getListNameDocument());
+		olDocuments.addAll(documentServi.getDocumentListName());
 
 		tfCountDocuments.setText(String.valueOf(documentServi.countDocuments()));
 		lvDocuments.setItems(olDocuments);
@@ -123,7 +123,7 @@ public class MainControllerView implements Initializable {
 	private void documentSelected(String newValueSelect) {
 
 		Document document = null;
-		document = documentServi.findByTitle(newValueSelect);
+		document = documentServi.findDocumentByTitle(newValueSelect);
 
 		if ( document != null ){
 
@@ -208,7 +208,7 @@ public class MainControllerView implements Initializable {
 			
 
 			for (Record objRecord : listRecords){
-				Document document = documentServi.getDocument(objRecord);
+				Document document = documentServi.findDocumentByRecord(objRecord);
 				listDocuments.add(document);
 			}
 

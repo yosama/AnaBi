@@ -130,7 +130,7 @@ public class AuthorServices {
 
 		for ( String authorNameFN: nameFNAuthorsList ){
 
-			findByName(authorNameFN);
+			findAuthorByName(authorNameFN);
 			authorNameFN = authorNameFN.trim();
 
 			for ( int i = 0; i < listAuthor.size(); i++ ){
@@ -263,11 +263,15 @@ public class AuthorServices {
 		connDB.runSql(sql);
 	}
 
-	public Author findByName (String nameAuthor){
+	public Author findAuthorByName (String nameAuthor){
 
 		author = null;
-		nameAuthor = nameAuthor.trim();
+		
+		if ( nameAuthor.contains("'")){
+			nameAuthor = nameAuthor.replace("'"," ").trim();
+		}
 		sql = "";
+		
 		sql = "SELECT * FROM author WHERE name_au='"+nameAuthor+"'";
 
 		ResultSet rs = connDB.runSql(sql);

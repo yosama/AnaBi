@@ -10,8 +10,8 @@ import anabi.services.DocumentServices;
 import anabi.services.FundingServices;
 import anabi.services.JournalServices;
 import anabi.services.PublisherServices;
-import anabi.services.TypeDocumentServices;
-import anabi.services.TypePublicationServices;
+import anabi.services.DocumentTypeServices;
+import anabi.services.PublicationTypeServices;
 
 
 public class InitServices {
@@ -22,8 +22,8 @@ public class InitServices {
 	private  JournalServices journalServi;
 	private  PublisherServices publisherServi;
 	private  DocumentServices documentServi;
-	private TypeDocumentServices typeDocumentServi;
-	private TypePublicationServices typePublicationServi;
+	private DocumentTypeServices typeDocumentServi;
+	private PublicationTypeServices typePublicationServi;
 
 	private ConnectionDB db;
 	private  static InitServices instances = null;
@@ -46,8 +46,8 @@ public class InitServices {
 		journalServi = new JournalServices();
 		publisherServi = new PublisherServices();
 		documentServi = new DocumentServices();
-		typeDocumentServi = new TypeDocumentServices();
-		typePublicationServi = new TypePublicationServices();
+		typeDocumentServi = new DocumentTypeServices();
+		typePublicationServi = new PublicationTypeServices();
 
 	}
 
@@ -100,19 +100,19 @@ public class InitServices {
 		this.documentServi = documentServi;
 	}
 
-	public TypeDocumentServices getTypeDocumentServi() {
+	public DocumentTypeServices getTypeDocumentServi() {
 		return typeDocumentServi;
 	}
 
-	public void setTypeDocumentServi(TypeDocumentServices typeDocumentServi) {
+	public void setTypeDocumentServi(DocumentTypeServices typeDocumentServi) {
 		this.typeDocumentServi = typeDocumentServi;
 	}
 
-	public TypePublicationServices getTypePublicationServi() {
+	public PublicationTypeServices getTypePublicationServi() {
 		return typePublicationServi;
 	}
 
-	public void setTypePublicationServi(TypePublicationServices typePublicationServi) {
+	public void setTypePublicationServi(PublicationTypeServices typePublicationServi) {
 		this.typePublicationServi = typePublicationServi;
 	}
 
