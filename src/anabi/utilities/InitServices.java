@@ -147,12 +147,13 @@ public class InitServices {
 	
 	
 	public void deleteDB(){
-		//documentServi.deleteAllDocument();
+		documentServi.deleteAllDocument();
 		journalServi.deleteAllJournal();
 		publisherServi.deleteAllPublisher();
 		fundingServi.deleteAll();
 		authorServi.deleteAllAuthor();
-		
+		affiliationServi.deleteAllAffiliations();
+				
 	}
 	
 	public boolean containQuotes(String text){

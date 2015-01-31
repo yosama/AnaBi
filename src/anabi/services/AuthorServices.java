@@ -22,9 +22,7 @@ public class AuthorServices {
 	private List<Author> listAuthor = new ArrayList<Author>();
 
 	public AuthorServices(){
-
 		iniServices  = iniServices.getInstances();
-		connDB = iniServices.getDB();
 	}
 
 
@@ -153,7 +151,7 @@ public class AuthorServices {
 	}
 
 
-	public List<Integer> getAuthorList (Record keyrecord){
+	public List<Integer> getCodAuthorList (Record aKey){
 
 		List<Integer> result = new ArrayList<Integer>();
 		Integer idRow = 0;
@@ -165,8 +163,28 @@ public class AuthorServices {
 			idRow = objAuthor.getRecord().getIDRecord();
 			idDocument = objAuthor.getRecord().getCodDocument();
 
-			if ( (idRow.equals(keyrecord.getIDRecord())) && (idDocument.equals(keyrecord.getCodDocument())) ) {
+			if ( (idRow.equals(aKey.getIDRecord())) && (idDocument.equals(aKey.getCodDocument())) ) {
 				result.add(objAuthor.getCodAuthor());
+			} 
+		}
+		return result;
+	}
+
+	
+	// Return a list authors. Receive as parameter a the document's key  
+	public List<Author> getAuthorList (Record aKey){
+
+		List<Author> result = new ArrayList<Author>();
+		Integer idRow = 0;
+		String idDocument = "";
+
+		for (Author objAuthor : listAuthor ){
+
+			idRow = objAuthor.getRecord().getIDRecord();
+			idDocument = objAuthor.getRecord().getCodDocument();
+
+			if ( (idRow.equals(aKey.getIDRecord())) && (idDocument.equals(aKey.getCodDocument())) ) {
+				result.add(objAuthor);
 			} 
 		}
 		return result;
@@ -177,20 +195,20 @@ public class AuthorServices {
 		return listAuthor.size();
 	}
 
-	public List<String> getNamesAllAuthorsList(){
+	public List<String> getNamesAllAuthorsList() {
 		List<String> listResult = new ArrayList<String>();
 
-		for(Author objDocument : listAuthor){
+		for(Author objDocument : listAuthor) {
 			listResult.add(objDocument.getNameAu());
 		}
 		return listResult;
 	} 
 
 
-	public List<Author> getAuthorList (List<Integer> codAuthorsList){
+	public List<Author> getAuthorList (List<Integer> codAuthorsList) {
 		List<Author> result = new ArrayList<Author>();
 
-		for (Integer idAuthor : codAuthorsList){
+		for (Integer idAuthor : codAuthorsList) {
 			Author author = findByIdAuthor(idAuthor);
 			result.add(author);
 		}
@@ -198,16 +216,16 @@ public class AuthorServices {
 	}
 
 
-	public Author findByNameAuthor(String  name){
+	public Author findByNameAuthor(String  name) {
 
 		name = name.trim();
 		Author result = null;
 		boolean founded = false;
 
-		for ( int i = 0; i < listAuthor.size() && !founded ; i++ ){
+		for ( int i = 0; i < listAuthor.size() && !founded ; i++ ) {
 			String nameAuthor = listAuthor.get(i).getNameAu().trim();
 
-			if ( nameAuthor.equals(name) ){
+			if ( nameAuthor.equals(name) ) {
 				result = listAuthor.get(i);
 				founded = true;
 			}
@@ -216,14 +234,14 @@ public class AuthorServices {
 	}
 
 
-	public Author findByIdAuthor(Integer codAuthor){
+	public Author findByIdAuthor(Integer codAuthor) {
 
 		Author result = null;
 		boolean founded = false;
 
-		for ( int i = 0; i < listAuthor.size() && !founded ; i++ ){
+		for ( int i = 0; i < listAuthor.size() && !founded ; i++ ) {
 			Integer idAuthor = listAuthor.get(i).getCodAuthor();
-			if ( idAuthor == codAuthor ){
+			if ( idAuthor == codAuthor ) {
 				result = listAuthor.get(i);
 				founded = true;
 			}
@@ -231,9 +249,11 @@ public class AuthorServices {
 		return result;
 	}
 
-	public List<String> getNamesList(List<Author> listAuthors){
+	
+	
+	public List<String> getNamesList(List<Author> listAuthors) {
 		List<String> result = new ArrayList<String>();
-		for (Author objAuthor : listAuthors){
+		for (Author objAuthor : listAuthors) {
 			Author author = findByIdAuthor(objAuthor.getCodAuthor());
 			result.add(author.getNameAu());
 		}
@@ -241,12 +261,13 @@ public class AuthorServices {
 	}
 
 
+
 	public void addAuthor(Integer codAuthor, String nameAuthor, String nameFullAuthor,String email,String authorRP) {
 		sql = "";
 		sql = "INSERT INTO author VALUES (\""+codAuthor+"\",\""+nameAuthor+"\",\""+nameFullAuthor+"\",\""+email+"\",\""+authorRP+"\")";
 		connDB = iniServices.getDB();
-		ResultSet rs = connDB.runSql(sql);
-		
+		connDB.runSql(sql);
+
 	}
 
 	public void deleteAllAuthor (){
@@ -266,12 +287,12 @@ public class AuthorServices {
 	public Author findAuthorByName (String nameAuthor){
 
 		author = null;
-		
+
 		if ( nameAuthor.contains("'")){
 			nameAuthor = nameAuthor.replace("'"," ").trim();
 		}
 		sql = "";
-		
+
 		sql = "SELECT * FROM author WHERE name_au='"+nameAuthor+"'";
 
 		ResultSet rs = connDB.runSql(sql);

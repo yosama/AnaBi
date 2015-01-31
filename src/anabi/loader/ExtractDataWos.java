@@ -125,7 +125,6 @@ public class ExtractDataWos {
 		
 		iniServices.deleteDB();
 		
-
 		for (Object listRecord : listRecords) {
 
 			hashRecord =  (HashMap<String, String>) listRecord;
@@ -137,23 +136,24 @@ public class ExtractDataWos {
 			System.out.println("Registro: "+keyRecord.getIDRecord()+ ". ID Documento: "+keyRecord.getCodDocument());
 			System.out.println("========================");
 
-			System.out.println("Insertando autores");
+			System.out.println("Inserting Author");
 			authorServi.setListAuthor(hashRecord, keyRecord);
 
-			System.out.println("Insertando Filiacion");
+			System.out.println("Inserting Affiliation");
 			affiliationServi.setListAffiliation(hashRecord, keyRecord);
 
-			System.out.println("Insertando Organizacion que financia");
+			System.out.println("Inserting Funding");
 			fundingServi.setListFunding(hashRecord, keyRecord);
 
-			System.out.println("Insertando Editorial");
+			System.out.println("Inserting Publisher");
 			publisherServi.setListPublisher(hashRecord, keyRecord);
 			
-			System.out.println("Insertando Revista ");
+			System.out.println("Inserting Journal");
 			journalServi.setListJournal(hashRecord, keyRecord);
 
-			System.out.println("Insertando Articulo");
+			System.out.println("Inserting Document");
 			documentServi.setListDocument(hashRecord, keyRecord);
+			
 		}
 
 		System.out.println("=========================================");
@@ -177,7 +177,7 @@ public class ExtractDataWos {
 		}catch(NullPointerException npe){
 System.out.println("Exeception "+ npe.getMessage());
 			System.out.println("Documento: " + documentServi.findDocumentByRecord(row).getCodDocumentUt()+
-					" \nCantidad autores: "+ authorServi.getAuthorList(documentServi.findDocumentByRecord(row).getRecord()).size()+
+					" \nCantidad autores: "+ authorServi.getCodAuthorList(documentServi.findDocumentByRecord(row).getRecord()).size()+
 					" \n Cantidad Afiliacion : "+ documentServi.findDocumentByRecord(row).getListCodAffiliation().size()+
 					" \nRevista : "+ documentServi.findDocumentByRecord(row).getCodJournal()+
 					" \nOrganizacion Financiera: + fundingServi.getJournal(documentServi.getDocument(row).getRecord()).getNameFu() ");

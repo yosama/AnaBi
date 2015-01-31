@@ -162,7 +162,7 @@ public class MainControllerView implements Initializable {
 	public void updateListAffiliation() {
 
 		affiliationServi = InitServices.getInstances().getAffiliationServi();
-		olAffiliations = FXCollections.observableList(affiliationServi.getListNameAffiliation());
+		olAffiliations = FXCollections.observableList(affiliationServi.getAffiliationsListNames());
 
 		tfCountAffiliations.setText(String.valueOf(affiliationServi.countAffiliations()));
 
