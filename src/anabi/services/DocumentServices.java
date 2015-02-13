@@ -1,10 +1,12 @@
 package anabi.services;
 
+import java.nio.charset.CodingErrorAction;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import anabi.models.Author;
 import anabi.models.Document;
 import anabi.models.Record;
 import anabi.utilities.ConnectionDB;
@@ -17,16 +19,16 @@ public class DocumentServices {
 	private Document document;
 	private List<Document> listDocument = new ArrayList<Document>();
 	private InitServices iniServices;
-	private AuthorServices authorServi;
-	private JournalServices journalServi;
-	private FundingServices fundingServi;
-	private AffiliationServices affiliationServi;
-	private ConnectionDB db;
+	//	private AuthorServices authorServi;
+	//	private JournalServices journalServi;
+	//	private FundingServices fundingServi;
+	//	private AffiliationServices affiliationServi;
 
+	private ConnectionDB connDB;
+	private String  sql;
 
 	public DocumentServices(){
-		iniServices = InitServices.getInstances();
-		db = iniServices.getDB();
+		iniServices = iniServices.getInstances();
 
 	}
 
@@ -40,7 +42,7 @@ public class DocumentServices {
 
 		this.keyRecord = key;
 
-		String categoryDocument = "";
+		String publicationType = "";
 		String titleTI = "";
 		String languageLA = "";
 		String documentTypeDT = "";
@@ -58,7 +60,7 @@ public class DocumentServices {
 		String beginPage = "";
 		String endPage = "";
 
-		categoryDocument = record.get("PT");
+		publicationType = record.get("PT");
 		titleTI = record.get("TI");
 		languageLA = record.get("LA");
 		documentTypeDT = record.get("DT");
@@ -83,42 +85,26 @@ public class DocumentServices {
 		if (!(validateField(endPage))){
 			endPage = "SPF"; // SPF = Sin pagina final
 		}
-		
-		iniServices = InitServices.getInstances();
-		journalServi = iniServices.getJournalServi();
-		fundingServi = iniServices.getFundingServi();
-		authorServi = iniServices.getAuthorServices();
-		affiliationServi = iniServices.getAffiliationServi();
 
-		Integer codJournal = journalServi.getCodJournal(keyRecord);
-		Integer codFunding = fundingServi.getCodFunding(keyRecord);
-		//Integer codTypeDocument = 
-		List<Integer> codAuthorList = authorServi.getAuthorList(keyRecord);
-		List<Integer> listCodAffiliation = affiliationServi.getListAffiliation(keyRecord);
-		
-		
-		
-//		addDocument(keyRecord.getCodDocument(), titleTI, languageLA,
-//					abstractAB, volumenVL, yearPY, datePD,
-//					titleSourceDI, indexKeywords, authorKeywords,
-//					citedNR, citedZ9, citedTC, countPage,beginPage,endPage,
-//					documentTypeDT,codC codJournal,codFunding
-//					//Integer codTypeDocument, Integer codCategoryDocument, Integer codJournal, Integer codOrgFinancia
-//					
-//				);
-		
-		
+
+		addDocument(keyRecord.getCodDocument(),publicationType, titleTI, languageLA,documentTypeDT,
+				abstractAB, volumenVL, yearPY, datePD,
+				titleSourceDI, indexKeywords, authorKeywords,
+				citedNR, citedZ9, citedTC, countPage,beginPage,endPage);
+
+
 		document = new Document(keyRecord.getCodDocument(), titleTI, languageLA,
-								abstractAB, volumenVL, yearPY, datePD,
-								titleSourceDI, indexKeywords, authorKeywords, 
-								citedNR, citedZ9, citedTC, 
-								countPage, documentTypeDT, keyRecord );
-		
+				abstractAB, volumenVL, yearPY, datePD,
+				titleSourceDI, indexKeywords, authorKeywords, 
+				citedNR, citedZ9, citedTC, 
+				countPage, documentTypeDT, keyRecord );
 
 		listDocument.add(document);
 
 	}
 
+
+	// Validate the fields beginPage and endPage 
 	public boolean validateField (String field){
 
 		try {
@@ -132,12 +118,15 @@ public class DocumentServices {
 		}
 	}
 
+
+	// Count the documents of the local list
 	public Integer countDocuments(){
 
 		return listDocument.size();
 	}
 
-	public Document getDocument(Record keyrecord){
+
+	public Document findDocumentByRecord(Record keyrecord){
 
 		Document  result = new Document();
 		Integer idRow = 0;
@@ -159,12 +148,16 @@ public class DocumentServices {
 		return result;
 	} 
 
-	public Document findByRecord (Integer idRecord){
 
-		return listDocument.get(listDocument.size() - idRecord);
+	// 
+	public Document findDocumentByRecord (Integer aRow){
+
+		return listDocument.get(listDocument.size() - aRow);
 	}
 
-	public Document findByIdWos (String wosUT){
+
+	// Find a document by the WoS code  
+	public Document findDocumentByIdWos (String wosUT){
 		boolean encontrado = false;
 		Document result = null;
 		for ( int i= 0; i < listDocument.size() && encontrado == false; i++){
@@ -177,7 +170,9 @@ public class DocumentServices {
 		return result;
 	}
 
-	public Document findByTitle (String title){
+
+	// Find a document by  its title of the local list
+	public Document findDocumentByTitle (String title){
 		boolean finded = false;
 		Document result = null;
 		title = title.trim();
@@ -192,11 +187,15 @@ public class DocumentServices {
 		return result;
 	}
 
-	public List<Document> getListAllDocuments(){
+
+	// Return  all documents of the local list
+	public List<Document> getDocumentsListAll(){
 		return listDocument;
 	}
 
-	public List<String> getListNameDocument(){
+
+	// Return all names documents of the local list
+	public List<String> getDocumentListName(){
 		List<String> listResult = new ArrayList<String>();
 
 		for(Document objDocument : listDocument){
@@ -206,46 +205,118 @@ public class DocumentServices {
 	}
 
 
-	public void addDocument(String codArticleUT, String titleTI, String languageLA, String abstractAB,
-			String volumenVL, String yearPublicationPY, String datePublicationPD, String titleSourceDI,
-			String indexkewordsID, String authKewordsDE, String citedCountNR, String citedTotalZ9, 
-			String citedReferenceTC, String pageCountPG, String pageBeginBP, String pageEndEP, 
-			Integer codTypeDocument, Integer codCategoryDocument, Integer codJournal, Integer codOrgFinancia){
+	// Add a document to the database 
+	public void addDocument(String codArticleUT, String aPublicationType, String titleTI, String languageLA, String aDocumentType,
+			String abstractAB, String volumenVL, String yearPublicationPY, String datePublicationPD, 
+			String titleSourceDI, String indexkewordsID, String authKewordsDE, 
+			String citedCountNR, String citedTotalZ9, String citedReferenceTC, 
+			String pageCountPG, String pageBeginBP, String pageEndEP) {
 
-		String sql = "INSERT INTO document values("+codArticleUT+","+titleTI+","+languageLA+","+abstractAB+","+
-				volumenVL+","+yearPublicationPY+","+datePublicationPD+","+
-				titleSourceDI+","+indexkewordsID+","+authKewordsDE+","+
-				citedCountNR+","+citedTotalZ9+","+citedReferenceTC+","+
-				pageCountPG+","+pageBeginBP+","+pageEndEP+","+
-				codTypeDocument+","+codCategoryDocument+","+codJournal+","+codOrgFinancia+
-				")";
 
-		db.runSql(sql);
+		iniServices = InitServices.getInstances();
+		JournalServices journalServi = iniServices.getJournalServi();
+		FundingServices fundingServi = iniServices.getFundingServi();
+		AffiliationServices affiliationServi = iniServices.getAffiliationServi();
 
+		// Get codJournal for this document
+		Integer codJournal = journalServi.getCodJournal(keyRecord);
+		// Get codFunding for this document
+		Integer codFunding = fundingServi.getCodFunding(keyRecord);
+
+		String data = (titleTI+"@NEXT@"+abstractAB+"@NEXT@"+titleSourceDI+"@NEXT@"+indexkewordsID+"@NEXT@"+authKewordsDE);
+
+		//		System.out.println("TITLEEEEE:  "+splitData[0]);
+		//		System.out.println("ABSSS:  "+splitData[1]);
+		//		System.out.println("TITLESDI:  "+splitData[2]);
+
+		if ( data.contains(String.valueOf('"')) ){
+			System.out.println(data);
+			data  = data.replace(String.valueOf('"'), "'");
+			String [] splitData = data.split("@NEXT@");
+			titleTI = splitData[0];
+			abstractAB = splitData[1];
+			titleSourceDI = splitData[2];
+			indexkewordsID = splitData[3];
+			authKewordsDE = splitData[4];
+
+			//			System.out.println("TITLEEEEE:  "+splitData[0]);
+			//			System.out.println("ABSSS:  "+splitData[1]);
+			//			System.out.println("TITLESDI:  "+splitData[2]);
+
+		} 
+
+		sql = "";
+		sql = "INSERT INTO document VALUES (\""+codArticleUT+"\",\""+aPublicationType+"\",\""+titleTI+"\",\""+languageLA+"\",\""+aDocumentType+"\",\""+abstractAB+"\",\""+
+				volumenVL+"\",\""+yearPublicationPY+"\",\""+datePublicationPD+"\",\""+
+				titleSourceDI+"\",\""+indexkewordsID+"\",\""+authKewordsDE+"\",\""+
+				citedCountNR+"\","+citedTotalZ9+","+citedReferenceTC+",\""+
+				pageCountPG+"\",\""+pageBeginBP+"\",\""+pageEndEP+"\","
+				+codJournal+","+codFunding+")";
+
+		System.out.println(sql);
+
+		connDB = iniServices.getDB();
+		connDB.runSql(sql);
+
+		addDocumentAndAuthor();
+	}
+
+
+	// Add a occurrence of Document and Author 
+	public void addDocumentAndAuthor() {
+
+		AuthorServices authorServi = iniServices.getAuthorServices();
+		sql = "";
+
+		// Get list authors for this document
+		List<Integer> listCodAuthor = authorServi.getCodAuthorList(keyRecord);
+
+		//connDB = iniServices.getDB();
+		for ( Integer idAuthor : listCodAuthor){
+
+			sql = "INSERT INTO document_author VALUES (\""+keyRecord.getCodDocument()+"\","+idAuthor+")";
+			connDB.runSql(sql);
+		}
 
 	}
 
+
+	// Delete a document specific of the database
 	public void deleteDocument(String idDocument){
 
-		String sql = "DELETE FROM document WHERE cod_document_ut="+idDocument+")";
-		db.runSql(sql);
+		sql ="";
+		sql = "DELETE FROM document WHERE cod_document_ut="+idDocument+")";
+		connDB = iniServices.getDB();
+		connDB.runSql(sql);
 	}
 
 
+	// Delete all documents of the database
 	public void deleteAllDocument(){
-		
-		String sql = "DELETE FROM document";
-		db.runSql(sql);
+		sql ="";
+		sql = "DELETE FROM document";
+		connDB = iniServices.getDB();
+		connDB.runSql(sql);
+		deleteAllDocumentAuthor();
 	}
 
+	// Delete all documents and author of the database
+		public void deleteAllDocumentAuthor(){
+			sql ="";
+			sql = "DELETE FROM document_author";
+			connDB.runSql(sql);
+		}
 
-	public Document findByCod(String idDocument){
+	// Find a document by its codDocument on  the database
+	public Document findDocumentByCod(String idDocument){
 
 		idDocument = idDocument.trim();
-		String sql = "SELECT * FROM document WHERE cod_document_ut="+idDocument;
-		ResultSet rs = db.runSql(sql);
+		sql ="";
+		sql = "SELECT * FROM document WHERE cod_document_ut="+idDocument;
+		connDB = iniServices.getDB();
+		ResultSet rs = connDB.runSql(sql);
 		Document document = new Document();
-		
+
 		if (rs != null){
 			try {
 				while (rs.next()) {
@@ -268,7 +339,7 @@ public class DocumentServices {
 					document.setCodCDocument(rs.getInt("cod_document_type"));
 					document.setCodFunding(rs.getInt("cod_publication_type"));
 					document.setCodJournal(rs.getInt("cod_journal"));
-					
+
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -278,11 +349,16 @@ public class DocumentServices {
 		return document;
 	}
 
+
+	// Return all documents of the database
 	public List<Document> getDocumentList(){
+
 		List<Document> resultList = new ArrayList<Document>();
-		String sql = "SELECT * FROM document";
-		ResultSet rs = db.runSql(sql);
-		  
+		sql ="";
+		sql = "SELECT * FROM document";
+		connDB = iniServices.getDB();
+		ResultSet rs = connDB.runSql(sql);
+
 		if (rs != null){
 			try {
 				while (rs.next()) {

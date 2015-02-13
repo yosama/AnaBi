@@ -26,6 +26,7 @@ public class FundingServices {
 
 		iniServices  = iniServices.getInstances();
 		listFunding = new ArrayList<Funding>();
+		codFunding = 0;
 	}
 
 
@@ -45,21 +46,21 @@ public class FundingServices {
 			nameFundingFU = record.get("FU");
 			descriptionFundingFX = record.get("FX");
 
-			if ( !( nameFundingFU.isEmpty() && descriptionFundingFX.isEmpty()) ) {
+			System.out.println(nameFundingFU);
+			if ( nameFundingFU == null && descriptionFundingFX == null ) {
+
+				System.out.println("Organizacion financiera vacia");
+			} else {
+				System.out.println( codFunding);
 				codFunding +=1;
-				
+				addFunding(codFunding, nameFundingFU, descriptionFundingFX);
+
 				funding = new Funding(codFunding,nameFundingFU,descriptionFundingFX, keyRecord);
 				listFunding.add(funding);
-				
-				addFunding(codFunding,nameFundingFU, descriptionFundingFX);
-
-				
-
-			} else {
-				System.out.println("Organizacion financiera vacia");
 			}
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			System.out.println("No se encuentra los campos de organizacion financiera");
 		}
 	}
@@ -97,6 +98,15 @@ public class FundingServices {
 	public void addFunding (Integer idFunding,String nameFu,String descriptionFx){
 
 		sql = "";
+
+		if (nameFu.contains("'")) {
+			nameFu = nameFu.replace("'", " ").trim();
+		}
+		
+		if (descriptionFx.contains("'")) {
+			descriptionFx =  descriptionFx.replace("'", " ").trim();
+		}
+
 		sql = "INSERT INTO funding VALUES ("+idFunding+",\'"+nameFu+"\',\'"+descriptionFx+"\')";
 		System.out.println(descriptionFx.length());
 		connDB = iniServices.getDB();
@@ -140,7 +150,7 @@ public class FundingServices {
 				sqle.printStackTrace();
 			}
 		}
-			return funding;
-		}
-
+		return funding;
 	}
+
+}

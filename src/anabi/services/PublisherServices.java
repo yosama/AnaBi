@@ -15,7 +15,8 @@ public class PublisherServices {
 
 	private Record keyRecord;
 	private Publisher publisher;
-	private Integer codPublisher = 0;
+	private Integer codPublisher;
+	private Integer codPublisherTemp;
 	private InitServices iniServices ;
 	private ConnectionDB connDB;
 	private ResultSet rs;
@@ -24,11 +25,12 @@ public class PublisherServices {
 	private List<Publisher> listPublisher;
 
 
-
 	public PublisherServices(){
 		iniServices  = iniServices.getInstances();
 		rs = null;
 		listPublisher = new ArrayList<Publisher>();
+		codPublisher = 0;
+		codPublisherTemp = 0;
 	}
 
 	/**
@@ -39,7 +41,7 @@ public class PublisherServices {
 	public void setListPublisher(HashMap<String, String> record, Record key) {
 
 		this.keyRecord = key;
-		
+
 		String namePublisherPU = "";
 		String addressPublisherPA = "";
 		String cityPublisherPI = "";
@@ -48,11 +50,15 @@ public class PublisherServices {
 		addressPublisherPA = record.get("PA");
 		cityPublisherPI = record.get("PI");
 
-		if (!( namePublisherPU.isEmpty() && addressPublisherPA.isEmpty() && cityPublisherPI.isEmpty()) ) {
+		if ( namePublisherPU.isEmpty() && addressPublisherPA.isEmpty() && cityPublisherPI.isEmpty() ) {
+			System.out.println("Publisher not found");
+		} else {
+			
 			codPublisher += 1;
+			addPublisher(codPublisher, namePublisherPU, addressPublisherPA, cityPublisherPI);
 			publisher = new Publisher(codPublisher,namePublisherPU, cityPublisherPI, addressPublisherPA, keyRecord);
 			listPublisher.add(publisher);
-			addPublisher(codPublisher, namePublisherPU, addressPublisherPA, cityPublisherPI);
+
 		} 
 
 	}
@@ -94,32 +100,17 @@ public class PublisherServices {
 		return resultCodPublisher;
 	}
 
-	public void addPublisher(Integer newCodPublisher,String namePU, String addressPA, String cityPI){
-		
-		publisher = findByName(namePU,cityPI);
-		System.out.println(publisher);
-		
+	public void addPublisher(Integer aCodPublisher,String aNamePU, String addressPA, String cityPI){
+
+		publisher = findByName(aNamePU,cityPI);
+		sql = "";
 		if (publisher == null){
-			sql = "";
-			sql = "INSERT INTO publisher VALUES ("+newCodPublisher+",'"+namePU+"','"+addressPA+"','"+cityPI+"')";
+			sql = "INSERT INTO publisher VALUES ("+aCodPublisher+",'"+aNamePU+"','"+addressPA+"','"+cityPI+"')";
 			connDB.runSql(sql);
+			codPublisherTemp = aCodPublisher;
+		} else {
+			codPublisherTemp = publisher.getCodPublisher();
 		}
-	}
-
-
-	public void deleteAllPublisher (){
-		sql = "";
-		sql = "DELETE FROM publisher";
-		connDB = iniServices.getDB();
-		connDB.runSql(sql);
-	}
-
-	public void deletePublisher(Integer idPublisher){
-
-		sql = "";
-		sql = "DELETE FROM publisher WHERE cod_publisher="+idPublisher;
-		connDB = iniServices.getDB();
-		connDB.runSql(sql);
 	}
 
 
@@ -151,8 +142,22 @@ public class PublisherServices {
 	}
 
 	public Integer getCodPublisher(){
-		return codPublisher;
+		return codPublisherTemp;
 	}
-	
-	
+
+	public void deleteAllPublisher (){
+		sql = "";
+		sql = "DELETE FROM publisher";
+		connDB = iniServices.getDB();
+		connDB.runSql(sql);
+	}
+
+	public void deletePublisher(Integer idPublisher){
+
+		sql = "";
+		sql = "DELETE FROM publisher WHERE cod_publisher="+idPublisher;
+		connDB = iniServices.getDB();
+		connDB.runSql(sql);
+	}
+
 }

@@ -22,9 +22,7 @@ public class AuthorServices {
 	private List<Author> listAuthor = new ArrayList<Author>();
 
 	public AuthorServices(){
-
 		iniServices  = iniServices.getInstances();
-		connDB = iniServices.getDB();
 	}
 
 
@@ -124,13 +122,16 @@ public class AuthorServices {
 		return listBuildedAuthors;	
 	}
 
+	
+	
+	// Return an  IDs authors list, receive as parameter an names authors list
 	public List<Integer> buildCodAuthorsList( List<String> nameFNAuthorsList){
 
 		List <Integer> listBuildedAuthors = new ArrayList<Integer>();
 
 		for ( String authorNameFN: nameFNAuthorsList ){
 
-			findByName(authorNameFN);
+			findAuthorByName(authorNameFN);
 			authorNameFN = authorNameFN.trim();
 
 			for ( int i = 0; i < listAuthor.size(); i++ ){
@@ -153,7 +154,7 @@ public class AuthorServices {
 	}
 
 
-	public List<Integer> getAuthorList (Record keyrecord){
+	public List<Integer> getCodAuthorList (Record aKey){
 
 		List<Integer> result = new ArrayList<Integer>();
 		Integer idRow = 0;
@@ -165,8 +166,28 @@ public class AuthorServices {
 			idRow = objAuthor.getRecord().getIDRecord();
 			idDocument = objAuthor.getRecord().getCodDocument();
 
-			if ( (idRow.equals(keyrecord.getIDRecord())) && (idDocument.equals(keyrecord.getCodDocument())) ) {
+			if ( (idRow.equals(aKey.getIDRecord())) && (idDocument.equals(aKey.getCodDocument())) ) {
 				result.add(objAuthor.getCodAuthor());
+			} 
+		}
+		return result;
+	}
+
+	
+	// Return a list authors. Receive as parameter a the document's key  
+	public List<Author> getAuthorList (Record aKey){
+
+		List<Author> result = new ArrayList<Author>();
+		Integer idRow = 0;
+		String idDocument = "";
+
+		for (Author objAuthor : listAuthor ){
+
+			idRow = objAuthor.getRecord().getIDRecord();
+			idDocument = objAuthor.getRecord().getCodDocument();
+
+			if ( (idRow.equals(aKey.getIDRecord())) && (idDocument.equals(aKey.getCodDocument())) ) {
+				result.add(objAuthor);
 			} 
 		}
 		return result;
@@ -177,37 +198,43 @@ public class AuthorServices {
 		return listAuthor.size();
 	}
 
-	public List<String> getNamesAllAuthorsList(){
+	
+	// Return all authors names of the local list
+	public List<String> getAuthorsNamesAllOfList() {
 		List<String> listResult = new ArrayList<String>();
 
-		for(Author objDocument : listAuthor){
+		for(Author objDocument : listAuthor) {
 			listResult.add(objDocument.getNameAu());
 		}
 		return listResult;
 	} 
 
 
-	public List<Author> getAuthorList (List<Integer> codAuthorsList){
+	
+	// Return all authors of local list
+	public List<Author> getAuthorsList (List<Integer> codAuthorsList) {
 		List<Author> result = new ArrayList<Author>();
 
-		for (Integer idAuthor : codAuthorsList){
-			Author author = findByIdAuthor(idAuthor);
+		for (Integer idAuthor : codAuthorsList) {
+			Author author = findAuthorByIdOfList(idAuthor);
 			result.add(author);
 		}
 		return result;
 	}
 
 
-	public Author findByNameAuthor(String  name){
+	
+	// Find an author by your name, receive as parameter an author name
+	public Author findAuthorByNameOfList (String  aNameAuthor) {
 
-		name = name.trim();
+		aNameAuthor = aNameAuthor.trim();
 		Author result = null;
 		boolean founded = false;
 
-		for ( int i = 0; i < listAuthor.size() && !founded ; i++ ){
+		for ( int i = 0; i < listAuthor.size() && !founded ; i++ ) {
 			String nameAuthor = listAuthor.get(i).getNameAu().trim();
 
-			if ( nameAuthor.equals(name) ){
+			if ( nameAuthor.equals(aNameAuthor) ) {
 				result = listAuthor.get(i);
 				founded = true;
 			}
@@ -216,14 +243,16 @@ public class AuthorServices {
 	}
 
 
-	public Author findByIdAuthor(Integer codAuthor){
+	
+	// Find an author by your ID, receive as parameter a code author name
+	public Author findAuthorByIdOfList(Integer aCodAuthor) {
 
 		Author result = null;
 		boolean founded = false;
 
-		for ( int i = 0; i < listAuthor.size() && !founded ; i++ ){
+		for ( int i = 0; i < listAuthor.size() && !founded ; i++ ) {
 			Integer idAuthor = listAuthor.get(i).getCodAuthor();
-			if ( idAuthor == codAuthor ){
+			if ( idAuthor == aCodAuthor ) {
 				result = listAuthor.get(i);
 				founded = true;
 			}
@@ -231,24 +260,32 @@ public class AuthorServices {
 		return result;
 	}
 
-	public List<String> getNamesList(List<Author> listAuthors){
+	
+	
+	// Return an authors's names list, receive as parameter an authors list
+	public List<String> getAuthorsNamesOfList(List<Author> listAuthors) {
 		List<String> result = new ArrayList<String>();
-		for (Author objAuthor : listAuthors){
-			Author author = findByIdAuthor(objAuthor.getCodAuthor());
+		for (Author objAuthor : listAuthors) {
+			Author author = findAuthorByIdOfList(objAuthor.getCodAuthor());
 			result.add(author.getNameAu());
 		}
 		return result;
 	}
 
 
+
+	// Inserting an author in database
 	public void addAuthor(Integer codAuthor, String nameAuthor, String nameFullAuthor,String email,String authorRP) {
 		sql = "";
 		sql = "INSERT INTO author VALUES (\""+codAuthor+"\",\""+nameAuthor+"\",\""+nameFullAuthor+"\",\""+email+"\",\""+authorRP+"\")";
 		connDB = iniServices.getDB();
-		ResultSet rs = connDB.runSql(sql);
-		
+		connDB.runSql(sql);
+
 	}
 
+	
+	
+	// delete all authors of the database;
 	public void deleteAllAuthor (){
 		sql = "";
 		sql = "DELETE FROM author";
@@ -256,6 +293,9 @@ public class AuthorServices {
 		connDB.runSql(sql);
 	}
 
+	
+	
+	// Delete an author specific, receive as parameter the author's Id of the database
 	public void deleteAuthor(Integer idAuthor){
 
 		sql = "";
@@ -263,12 +303,14 @@ public class AuthorServices {
 		connDB.runSql(sql);
 	}
 
-	public Author findByName (String nameAuthor){
+	
+	
+	// Find an author by your name on the database, receive as parameter an author name 
+	public Author findAuthorByName (String nameAuthor){
 
 		author = null;
-		nameAuthor = nameAuthor.trim();
 		sql = "";
-		sql = "SELECT * FROM author WHERE name_au='"+nameAuthor+"'";
+		sql = "SELECT * FROM author WHERE name_au=\""+nameAuthor+"\"";
 
 		ResultSet rs = connDB.runSql(sql);
 

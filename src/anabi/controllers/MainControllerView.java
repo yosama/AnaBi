@@ -102,7 +102,7 @@ public class MainControllerView implements Initializable {
 	public void updateListDocument() {
 
 		documentServi = InitServices.getInstances().getDocumentServi();
-		olDocuments.addAll(documentServi.getListNameDocument());
+		olDocuments.addAll(documentServi.getDocumentListName());
 
 		tfCountDocuments.setText(String.valueOf(documentServi.countDocuments()));
 		lvDocuments.setItems(olDocuments);
@@ -123,7 +123,7 @@ public class MainControllerView implements Initializable {
 	private void documentSelected(String newValueSelect) {
 
 		Document document = null;
-		document = documentServi.findByTitle(newValueSelect);
+		document = documentServi.findDocumentByTitle(newValueSelect);
 
 		if ( document != null ){
 
@@ -143,8 +143,8 @@ public class MainControllerView implements Initializable {
 
 			// Filled authors list
 			olAuthors.clear();
-			List<Author> listAuthors = authorServi.getAuthorList(listCodAuthors);
-			List<String> listNameAuthors = authorServi.getNamesList(listAuthors);
+			List<Author> listAuthors = authorServi.getAuthorsList(listCodAuthors);
+			List<String> listNameAuthors = authorServi.getAuthorsNamesOfList(listAuthors);
 			olAuthors.addAll(listNameAuthors);
 		}
 	}
@@ -153,7 +153,7 @@ public class MainControllerView implements Initializable {
 	public void updateListAuthor() {
 
 		authorServi = InitServices.getInstances().getAuthorServices();
-		olAuthors = FXCollections.observableList(authorServi.getNamesAllAuthorsList());
+		olAuthors = FXCollections.observableList(authorServi.getAuthorsNamesAllOfList());
 
 		tfCountAuthors.setText(String.valueOf(authorServi.countAuthors()));
 		lvAuthors.setItems(olAuthors);
@@ -162,7 +162,7 @@ public class MainControllerView implements Initializable {
 	public void updateListAffiliation() {
 
 		affiliationServi = InitServices.getInstances().getAffiliationServi();
-		olAffiliations = FXCollections.observableList(affiliationServi.getListNameAffiliation());
+		olAffiliations = FXCollections.observableList(affiliationServi.getAffiliationsListNames());
 
 		tfCountAffiliations.setText(String.valueOf(affiliationServi.countAffiliations()));
 
@@ -199,8 +199,8 @@ public class MainControllerView implements Initializable {
 			// Filled author list
 			olAuthors.clear();
 			listCodAuthors = affiliation.getListCodAuthor();
-			List<Author> listAuthors = authorServi.getAuthorList(listCodAuthors);
-			olAuthors.addAll(authorServi.getNamesList(listAuthors));
+			List<Author> listAuthors = authorServi.getAuthorsList(listCodAuthors);
+			olAuthors.addAll(authorServi.getAuthorsNamesOfList(listAuthors));
 			
 			//Filled document list
 			olDocuments.clear();
@@ -208,7 +208,7 @@ public class MainControllerView implements Initializable {
 			
 
 			for (Record objRecord : listRecords){
-				Document document = documentServi.getDocument(objRecord);
+				Document document = documentServi.findDocumentByRecord(objRecord);
 				listDocuments.add(document);
 			}
 

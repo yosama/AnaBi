@@ -7,6 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.naming.CommunicationException;
+
+import com.mysql.jdbc.CommunicationsException;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
+
 public class ConnectionDB {
 
 	private Connection conn = null;
@@ -19,10 +24,10 @@ public class ConnectionDB {
 			sqle.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 
-	public ResultSet runSql(String sql) {
+	public ResultSet runSql(String sql)  {
 		
 		//System.out.println(sql);
 		Statement statment =  null;		
@@ -30,7 +35,7 @@ public class ConnectionDB {
 		
 		try{
 			statment = conn.createStatement();
-			if (sql.contains("SELECT")){
+			if ( (sql.contains("SELECT ")) && (sql.contains("FROM ")) ){
 				//System.out.println(sql);
 				rs = statment.executeQuery(sql);
 			}else{
@@ -38,8 +43,11 @@ public class ConnectionDB {
 				 statment.executeUpdate(sql);
 			}
 			
-		}catch(SQLException sqle){
-			sqle.printStackTrace();
+		}catch ( MySQLIntegrityConstraintViolationException sqlcvex){
+			
+		
+		} catch(SQLException sqlex) {
+			sqlex.printStackTrace();
 		}
 
 		return rs;

@@ -7,15 +7,15 @@ import anabi.models.TypePublication;
 import anabi.utilities.ConnectionDB;
 import anabi.utilities.InitServices;
 
-public class TypePublicationServices {
+public class PublicationTypeServices {
 
 	private InitServices iniServices;
 	private ConnectionDB connDB;
 	private String sql ;
-	private TypePublication typePublication;
+	private TypePublication publicationType;
 
 
-	public TypePublicationServices(){
+	public PublicationTypeServices(){
 		iniServices = InitServices.getInstances();
 		connDB  = iniServices.getDB();
 
@@ -46,7 +46,7 @@ public class TypePublicationServices {
 
 	public TypePublication findByName (String nameType){
 
-		typePublication = null;
+		publicationType = null;
 		nameType = nameType.trim();
 		sql = "";
 		sql = "SELECT * FROM publication_type WHERE name_document_type="+nameType;
@@ -55,15 +55,15 @@ public class TypePublicationServices {
 
 		try {
 			while( rs.next()){
-				typePublication = new TypePublication();
-				typePublication.setCodCDocument(rs.getInt("cod_publication_type"));
-				typePublication.setNameCDocument(rs.getString("name_publication_type"));
-				typePublication.setDescription(rs.getString("description"));
+				publicationType = new TypePublication();
+				publicationType.setCodCDocument(rs.getInt("cod_publication_type"));
+				publicationType.setNameCDocument(rs.getString("name_publication_type"));
+				publicationType.setDescription(rs.getString("description"));
 			}
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
 
-		return typePublication;
+		return publicationType;
 	}
 }
