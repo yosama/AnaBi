@@ -58,40 +58,43 @@ public class AffiliationServices {
 
 
 			while ((line = br.readLine()) != null) {
+
 				String[] dataCOne;
-				List<String> listAuthorXAffiliation = new ArrayList<>();
+				List<String> authorsListByAffiliation = new ArrayList<>();
 
 				if (line.length() > 1) {
+					
 					if ( !(line.contains("[")) ){
 						line = line.substring(0,0) + "]"+line.substring(0,1) + line.substring(1);
 					}
 
 					if (line.contains("]")) {
-
-						String[] dataAffiliation = new String[line.split("]").length];
+						
+						// Extract authors
 						dataCOne = line.split("]");
-						String nameAuthorsAF = dataCOne[0].trim();
-						if (nameAuthorsAF.length() > 0 && nameAuthorsAF.contains(";")) {
-							listAuthorXAffiliation = Arrays.asList(nameAuthorsAF.substring(1).split(";"));
+						String authorsData = dataCOne[0].trim();
+						if (authorsData.equals("")) {
+							System.out.println("Author data empty");
 						} else {
-							listAuthorXAffiliation.add(nameAuthorsAF.substring(1));
+							authorsListByAffiliation = extractAuthorsNames(authorsData);
 						}
+						
+						
+						// Extract affiliation
+						String[] affiliationData = new String[dataCOne.length];
+						affiliationData = dataCOne[1].split(",");
 
-						dataAffiliation = new String[dataCOne.length];
-						dataAffiliation = dataCOne[1].split(",");
+						if ( affiliationData.length > 2) {
 
-						if ( dataAffiliation.length > 2) {
-
-							nameAffiliation = dataAffiliation[0];
-							cityAffiliation = dataAffiliation[dataAffiliation.length - 2];
-							countryAffiliation = dataAffiliation[dataAffiliation.length - 1];
+							nameAffiliation = affiliationData[0];
+							cityAffiliation = affiliationData[affiliationData.length - 2];
+							countryAffiliation = affiliationData[affiliationData.length - 1];
 						} else {
-							dataAffiliation = dataCOne[1].split(" ");
-							nameAffiliation = dataAffiliation[0];
-							cityAffiliation = dataAffiliation[dataAffiliation.length - 2];
-							countryAffiliation = dataAffiliation[dataAffiliation.length - 1];
+							affiliationData = dataCOne[1].split(" ");
+							nameAffiliation = affiliationData[0];
+							cityAffiliation = affiliationData[affiliationData.length - 2];
+							countryAffiliation = affiliationData[affiliationData.length - 1];
 						}
-
 
 						if (listAffiliation.size() >= 1){
 							affiliation = findAffiliationByName(nameAffiliation, cityAffiliation);
@@ -99,24 +102,24 @@ public class AffiliationServices {
 
 						// Adiciona los autores a la filiacion encontrada
 						if ( affiliation != null ) {
-							
+
 							Integer tempCodAffiliation = affiliation.getCodAffiliation();
-							
+
 							List<Integer> listTempCodAuthors = getCodAuthorsList(tempCodAffiliation);
-							deleteAnAffiliationAuthor(tempCodAffiliation);
-							
+							deleteRelationAffiliationAuthor(tempCodAffiliation);
+
 							authorServi = iniServices.getAuthorServices();
-							listCodAuthor = authorServi.buildCodAuthorsList(listAuthorXAffiliation);
+							listCodAuthor = authorServi.buildCodAuthorsList(authorsListByAffiliation);
 							listTempCodAuthors.addAll(listCodAuthor);
-							
+
 							addAffiliationAndAuthor(tempCodAffiliation, listTempCodAuthors);
 							//affiliation.setListCodAuthor(listTempCodAuthors);
-							
-							
-//							List<Record> listTempRecords = affiliation.getListRecord();
-//							listTempRecords.add(keyRecord);
-//							affiliation.setListRecord(listTempRecords);
-							
+
+
+							//							List<Record> listTempRecords = affiliation.getListRecord();
+							//							listTempRecords.add(keyRecord);
+							//							affiliation.setListRecord(listTempRecords);
+
 
 						} else {
 							// Create a new affiliation
@@ -124,7 +127,7 @@ public class AffiliationServices {
 
 							affiliation = new Affiliation(codAffiliation, nameAffiliation, cityAffiliation,countryAffiliation, keyRecord);
 							authorServi = iniServices.getAuthorServices();
-							listCodAuthor = authorServi.buildCodAuthorsList(listAuthorXAffiliation);
+							listCodAuthor = authorServi.buildCodAuthorsList(authorsListByAffiliation);
 
 							affiliation.setListCodAuthor(listCodAuthor);
 
@@ -140,13 +143,52 @@ public class AffiliationServices {
 
 
 
-		} catch (IOException e) {
-			System.out.println("Problemas al cargar el ficheros");
 		}catch (NullPointerException npe) {
 			System.out.println("Valor de linea: " + line);
+		} catch (IOException ex) {
+			System.out.println("Exception io");
 		}
 
 	}
+
+
+
+	/**
+	 * Return a names authors list. 
+	 * @param aDataLine
+	 * @return
+	 */
+	public List<String> extractAuthorsNames (String aDataLine) {
+
+		List<String> result = new ArrayList<String>();
+
+		if ( aDataLine.length() > 0 && aDataLine.contains(";")) {
+			result = Arrays.asList(aDataLine.substring(1).split(";"));
+		} else {
+			if (aDataLine.substring(1).trim().equals("")) {
+				System.out.println("linea vacias");
+			} else {
+				result.add(aDataLine.substring(1));
+			}
+			
+		}
+
+		return result;
+
+	}
+
+
+	
+	/**
+	 * Return the affiliation name
+	 * @return
+	 */
+	public String extractAffiliationName (String aDataLine) {
+		String result = "";
+		
+		return result;
+	}
+
 
 
 
@@ -255,7 +297,7 @@ public class AffiliationServices {
 
 		if (objAffiliation != null){
 			List<Integer> listIdAuthor = objAffiliation.getListCodAuthor();
-			result = authorServi.getAuthorList(listIdAuthor);
+			result = authorServi.getAuthorsList(listIdAuthor);
 		}
 		return result;
 	} 
@@ -272,7 +314,7 @@ public class AffiliationServices {
 
 		if (objAffiliation != null){
 			List<Integer> listIdAuthor = objAffiliation.getListCodAuthor();
-			result = authorServi.getAuthorList(listIdAuthor);
+			result = authorServi.getAuthorsList(listIdAuthor);
 		}
 
 		return result;
@@ -320,7 +362,7 @@ public class AffiliationServices {
 			sql = "INSERT INTO affiliation_author  VALUES ("+anIdAffiliation+","+aCodAuthor+")";
 			connDB.runSql(sql);
 		}
-		
+
 
 
 	}
@@ -337,7 +379,7 @@ public class AffiliationServices {
 
 
 	// Delete an occurrence  of the table affiliations_author
-	public void deleteAnAffiliationAuthor (Integer aCodAffiliation){
+	public void deleteRelationAffiliationAuthor (Integer aCodAffiliation){
 		sql = "";
 		sql = "DELETE FROM affiliation_author WHERE cod_affiliation="+aCodAffiliation;
 		connDB = iniServices.getDB();
@@ -364,11 +406,11 @@ public class AffiliationServices {
 		if ( aNameAffiliation.contains("'")){
 			aNameAffiliation = aNameAffiliation.replace("'"," ").trim();
 		}
-		
+
 		if ( aCityAffiliation.contains("'")){
 			aCityAffiliation = aCityAffiliation.replace("'"," ").trim();
 		}
-		
+
 		sql = "";
 		sql = "SELECT * FROM affiliation WHERE name_affiliation='"+aNameAffiliation+"' AND city_affiliation='"+aCityAffiliation+"'";
 
@@ -390,15 +432,15 @@ public class AffiliationServices {
 		return affiliation;
 	}
 
-	
+
 	public List<Integer> getCodAuthorsList (Integer aIdAffiliation) {
-		
+
 		List<Integer> result = new ArrayList<Integer>();
 		sql = "";
 		sql = "SELECT * FROM affiliation_author WHERE cod_affiliation="+aIdAffiliation;
 
 		ResultSet rs = connDB.runSql(sql);
-		
+
 		try {
 			while( rs.next()){
 				result.add(rs.getInt("cod_author"));
@@ -406,10 +448,10 @@ public class AffiliationServices {
 		} catch (SQLException sqle) {
 			sqle.printStackTrace();
 		}
-		
-		
+
+
 		return result;
 	}
-	
+
 
 }

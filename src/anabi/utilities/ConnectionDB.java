@@ -10,6 +10,7 @@ import java.sql.Statement;
 import javax.naming.CommunicationException;
 
 import com.mysql.jdbc.CommunicationsException;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 
 public class ConnectionDB {
 
@@ -26,7 +27,7 @@ public class ConnectionDB {
 		} 
 	}
 
-	public ResultSet runSql(String sql) {
+	public ResultSet runSql(String sql)  {
 		
 		//System.out.println(sql);
 		Statement statment =  null;		
@@ -42,8 +43,11 @@ public class ConnectionDB {
 				 statment.executeUpdate(sql);
 			}
 			
-		}catch(SQLException sqle){
-			sqle.printStackTrace();
+		}catch ( MySQLIntegrityConstraintViolationException sqlcvex){
+			
+		
+		} catch(SQLException sqlex) {
+			sqlex.printStackTrace();
 		}
 
 		return rs;

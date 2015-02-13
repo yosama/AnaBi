@@ -120,10 +120,6 @@ public class ExtractDataWos {
 		journalServi = iniServices.getJournalServi();
 		publisherServi = iniServices.getPublisherServi();
 		documentServi = iniServices.getDocumentServi();
-//		typeDocumentServi = iniServices.getTypeDocumentServi();
-//		typePublicationServi = iniServices.getTypePublicationServi();
-		
-		iniServices.deleteDB();
 		
 		for (Object listRecord : listRecords) {
 
@@ -133,6 +129,7 @@ public class ExtractDataWos {
 
 			keyRecord = new Record (idRecord,idDocument);
 
+			System.out.println("========================");
 			System.out.println("Registro: "+keyRecord.getIDRecord()+ ". ID Documento: "+keyRecord.getCodDocument());
 			System.out.println("========================");
 
@@ -166,23 +163,23 @@ public class ExtractDataWos {
 		System.out.println("CANTIDAD TOTAL FINANCIERAS: " + fundingServi.countFundings());
 		System.out.println("=========================================");
 
-		int row = 5;
-		try {
-			System.out.println("DOCUMENTO: " + documentServi.findDocumentByRecord(row).getCodDocumentUt());
-			System.out.println("CANTIDAD AUTORES: "+documentServi.findDocumentByRecord(row).getAuthorList().size());
-			System.out.println("CANTIDAD AFILIACION : "+ documentServi.findDocumentByRecord(row).getListCodAffiliation().size());	
-			System.out.println("REVISTA: "+ documentServi.findDocumentByRecord(row).getCodJournal());	
-			System.out.println("FINANCIERA: "+ documentServi.findDocumentByRecord(row).getCodFunding());
-
-		}catch(NullPointerException npe){
-System.out.println("Exeception "+ npe.getMessage());
-			System.out.println("Documento: " + documentServi.findDocumentByRecord(row).getCodDocumentUt()+
-					" \nCantidad autores: "+ authorServi.getCodAuthorList(documentServi.findDocumentByRecord(row).getRecord()).size()+
-					" \n Cantidad Afiliacion : "+ documentServi.findDocumentByRecord(row).getListCodAffiliation().size()+
-					" \nRevista : "+ documentServi.findDocumentByRecord(row).getCodJournal()+
-					" \nOrganizacion Financiera: + fundingServi.getJournal(documentServi.getDocument(row).getRecord()).getNameFu() ");
-
-		}
+//		int row = 5;
+//		try {
+//			System.out.println("DOCUMENTO: " + documentServi.findDocumentByRecord(row).getCodDocumentUt());
+//			System.out.println("CANTIDAD AUTORES: "+documentServi.findDocumentByRecord(row).getAuthorList().size());
+//			System.out.println("CANTIDAD AFILIACION : "+ documentServi.findDocumentByRecord(row).getListCodAffiliation().size());	
+//			System.out.println("REVISTA: "+ documentServi.findDocumentByRecord(row).getCodJournal());	
+//			System.out.println("FINANCIERA: "+ documentServi.findDocumentByRecord(row).getCodFunding());
+//
+//		}catch(NullPointerException npe){
+//System.out.println("Exeception "+ npe.getMessage());
+//			System.out.println("Documento: " + documentServi.findDocumentByRecord(row).getCodDocumentUt()+
+//					" \nCantidad autores: "+ authorServi.getCodAuthorList(documentServi.findDocumentByRecord(row).getRecord()).size()+
+//					" \n Cantidad Afiliacion : "+ documentServi.findDocumentByRecord(row).getListCodAffiliation().size()+
+//					" \nRevista : "+ documentServi.findDocumentByRecord(row).getCodJournal()+
+//					" \nOrganizacion Financiera: + fundingServi.getJournal(documentServi.getDocument(row).getRecord()).getNameFu() ");
+//
+//		}
 
 	}
 
